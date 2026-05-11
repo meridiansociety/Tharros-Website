@@ -42,7 +42,7 @@ const pains = [
 
 export default function ProblemSection() {
   return (
-    <section id="problem" className="py-24 md:py-48 px-6 md:px-12 relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
+    <section id="problem" className="py-16 md:py-24 px-6 md:px-12 relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
       <div className="max-w-7xl mx-auto relative">
         <AnimatedSection>
           <p className="section-label mb-6 text-center">The problem</p>
