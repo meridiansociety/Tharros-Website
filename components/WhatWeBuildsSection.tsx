@@ -47,7 +47,7 @@ const agents = [
 
 export default function WhatWeBuildsSection() {
   return (
-    <section id="solutions" className="py-24 md:py-28 px-6 md:px-12 relative overflow-hidden bg-white">
+    <section id="solutions" className="py-24 md:py-32 px-6 md:px-12 relative overflow-hidden bg-white">
       <div className="max-w-6xl mx-auto relative">
         <AnimatedSection>
           <p className="section-label mb-4 text-center">What we build</p>

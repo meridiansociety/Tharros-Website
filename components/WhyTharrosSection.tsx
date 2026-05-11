@@ -20,7 +20,7 @@ const pillars = [
 
 export default function WhyTharrosSection() {
   return (
-    <section id="why" className="py-24 md:py-28 px-6 md:px-12 relative overflow-hidden bg-white">
+    <section id="why" className="py-24 md:py-32 px-6 md:px-12 relative overflow-hidden bg-white">
       <div className="max-w-6xl mx-auto relative">
         <AnimatedSection>
           <p className="section-label mb-4 text-center">Why Tharros</p>

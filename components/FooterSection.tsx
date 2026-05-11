@@ -4,7 +4,7 @@ export default function FooterSection() {
   const year = new Date().getFullYear();
 
   return (
-    <footer id="contact" className="py-24 md:py-28 px-6 md:px-12 relative overflow-hidden bg-bg">
+    <footer id="contact" className="py-24 md:py-32 px-6 md:px-12 relative overflow-hidden bg-bg">
       <div className="max-w-4xl mx-auto text-center relative">
         <AnimatedSection variant="scale-in">
           <p className="section-label mb-6">
