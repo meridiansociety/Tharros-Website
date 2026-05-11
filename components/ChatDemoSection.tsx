@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "motion/react";
 import { Client, Key, Agent, type Task } from "@relevanceai/sdk";
 import AnimatedSection from "./AnimatedSection";
 
-// Relevance AI Configuration
-const REGION = "bcbe5a";
-const PROJECT = "53ba4219-0247-4c7e-a441-cd107d5783e0";
-const AGENT_ID = "f0398db0-96a2-4f11-8db8-b4c5b6fe769a";
+// Relevance AI Configuration (using environment variables)
+const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION || "";
+const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT || "";
+const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID || "";
 
 type LocalMessage = {
   id: string;
