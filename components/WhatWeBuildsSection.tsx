@@ -3,7 +3,7 @@ import AnimatedSection from "./AnimatedSection";
 const agents = [
   {
     icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden={true}>
         <rect width="32" height="32" rx="8" fill="rgba(0,194,255,0.1)" />
         <path d="M8 20 Q16 10 24 20" stroke="#00c2ff" strokeWidth="2" fill="none" strokeLinecap="round" />
         <circle cx="16" cy="20" r="2" fill="#00c2ff" />
@@ -19,7 +19,7 @@ const agents = [
   },
   {
     icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden={true}>
         <rect width="32" height="32" rx="8" fill="rgba(0,194,255,0.1)" />
         <rect x="8" y="10" width="16" height="12" rx="2" stroke="#00c2ff" strokeWidth="2" />
         <path d="M12 16h8M12 20h5" stroke="#00c2ff" strokeWidth="1.5" strokeLinecap="round" />
@@ -34,7 +34,7 @@ const agents = [
   },
   {
     icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden={true}>
         <rect width="32" height="32" rx="8" fill="rgba(0,194,255,0.1)" />
         <circle cx="16" cy="14" r="5" stroke="#00c2ff" strokeWidth="2" />
         <path d="M8 26c0-4.418 3.582-7 8-7s8 2.582 8 7" stroke="#00c2ff" strokeWidth="2" strokeLinecap="round" />

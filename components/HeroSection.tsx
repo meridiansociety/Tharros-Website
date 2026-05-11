@@ -11,7 +11,7 @@ export default function HeroSection() {
           background:
             "radial-gradient(ellipse 60% 40% at 50% 40%, rgba(0,194,255,0.08) 0%, transparent 70%)",
         }}
-        aria-hidden
+        aria-hidden={true}
       />
 
       <motion.div

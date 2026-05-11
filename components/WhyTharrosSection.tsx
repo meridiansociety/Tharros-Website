@@ -2,7 +2,7 @@ import AnimatedSection from "./AnimatedSection";
 
 const pillars = [
   {
-    icon: "🇨🇦",
+    icon: "🍁",
     headline: "Ottawa-local",
     body: "We know Kanata trades companies and Centretown law offices. We build agents that understand local context, local pricing questions, and local service areas.",
   },

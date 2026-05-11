@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -13,6 +13,12 @@ export default function AnimatedSection({
   className = "",
   delay = 0,
 }: AnimatedSectionProps) {
+  const reduced = useReducedMotion();
+
+  if (reduced) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
