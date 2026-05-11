@@ -44,7 +44,15 @@ export default function NavBar() {
         style={{ width: "min(92vw, 1100px)" }}
       >
         <Magnetic strength={0.15}>
-          <Link href="#hero" aria-label="Tharros home" className="shrink-0 block">
+          <a 
+            href="#hero" 
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            aria-label="Tharros home" 
+            className="shrink-0 block"
+          >
             <Image
               src="/tharros-logo.svg"
               alt="Tharros"
@@ -53,7 +61,7 @@ export default function NavBar() {
               priority
               style={{ width: "auto", height: "auto" }}
             />
-          </Link>
+          </a>
         </Magnetic>
 
         <nav className="hidden md:flex items-center gap-1">
