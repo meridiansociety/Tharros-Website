@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tharros.io"),
+  metadataBase: new URL("https://tharros.ca"),
   title: {
     default: "Tharros — AI Agents for Ottawa Small Businesses",
     template: "%s | Tharros",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Tharros — AI Agents for Ottawa Small Businesses",
     description:
       "Practical AI agents for local trades, services, and professional offices. No code. No corporate fluff. Just something that works.",
-    url: "https://tharros.io",
+    url: "https://tharros.ca",
     siteName: "Tharros",
     locale: "en_CA",
     type: "website",

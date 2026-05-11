@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://tharros.io/sitemap.xml',
+    sitemap: 'https://tharros.ca/sitemap.xml',
   }
 }
