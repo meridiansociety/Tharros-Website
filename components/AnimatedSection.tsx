@@ -6,15 +6,15 @@ type Variant = "fade-up" | "fade-left" | "fade-right" | "scale-in" | "fade";
 
 const variants: Record<Variant, { hidden: any; visible: any }> = {
   "fade-up": {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0 },
   },
   "fade-left": {
-    hidden: { opacity: 0, x: -30 },
+    hidden: { opacity: 0, x: -10 },
     visible: { opacity: 1, x: 0 },
   },
   "fade-right": {
-    hidden: { opacity: 0, x: 30 },
+    hidden: { opacity: 0, x: 10 },
     visible: { opacity: 1, x: 0 },
   },
   "scale-in": {
