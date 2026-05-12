@@ -70,10 +70,16 @@ export default function WhatWeBuildsSection() {
  
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 xl:gap-10">
           {agents.map((agent, i) => (
-            <AnimatedSection key={agent.name}>
+            <AnimatedSection key={agent.name} delay={i * 0.1} variant="scale-in">
               <motion.div 
-                whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                className="clean-card p-6 md:p-8 xl:p-10 h-full flex flex-col group cursor-default shadow-sm hover:shadow-lg hover:border-accent-3/20 transition-all duration-500"
+                whileHover={{ 
+                  y: -5,
+                  scale: 1.01,
+                  borderColor: "rgba(59, 130, 246, 0.3)",
+                  boxShadow: "0 20px 40px -15px rgba(0,0,0,0.08)",
+                  transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+                }}
+                className="clean-card p-6 md:p-8 xl:p-10 h-full flex flex-col group cursor-default shadow-sm transition-all duration-500"
               >
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-accent-3 group-hover:bg-accent-3/10 group-hover:text-accent-3 transition-colors duration-500 shrink-0">

@@ -70,10 +70,16 @@ export default function ProblemSection() {
  
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 xl:gap-10">
           {pains.map((pain, i) => (
-            <AnimatedSection key={pain.headline}>
+            <AnimatedSection key={pain.headline} delay={i * 0.1} variant="scale-in">
               <motion.div 
-                whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                className="clean-card p-6 md:p-8 xl:p-10 h-full flex flex-col group relative overflow-hidden cursor-default shadow-sm hover:shadow-lg hover:border-accent-3/20 transition-all duration-500"
+                whileHover={{ 
+                  y: -5,
+                  scale: 1.01,
+                  borderColor: "rgba(59, 130, 246, 0.3)",
+                  boxShadow: "0 20px 40px -15px rgba(0,0,0,0.08)",
+                  transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+                }}
+                className="clean-card p-6 md:p-8 xl:p-10 h-full flex flex-col group relative overflow-hidden cursor-default shadow-sm transition-all duration-500"
               >
                 {/* Accent left stripe */}
                 <div className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full bg-accent-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
