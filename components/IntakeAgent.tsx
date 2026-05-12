@@ -272,6 +272,7 @@ export default function IntakeAgent() {
                 subtitle="Active System"
                 modelType="CRM Intake Agent Model"
                 isLoading={isLoading}
+                height="h-[75dvh]"
               />
               {initError && (
                 <div className="mt-4 p-4 bg-white rounded-2xl border border-red-100 text-center">

@@ -21,6 +21,7 @@ interface MobileChatConsoleProps {
   subtitle: string;
   modelType: string;
   isLoading?: boolean;
+  height?: string;
 }
 
 export default function MobileChatConsole({
@@ -33,7 +34,8 @@ export default function MobileChatConsole({
   title,
   subtitle,
   modelType,
-  isLoading = false
+  isLoading = false,
+  height = "h-[50dvh]"
 }: MobileChatConsoleProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +46,7 @@ export default function MobileChatConsole({
   }, [messages, isTyping]);
 
   return (
-    <div className="flex flex-col h-[45dvh] md:h-[65dvh] w-full max-w-full bg-white rounded-[1.5rem] border border-slate-100 shadow-2xl overflow-hidden relative mx-auto">
+    <div className={`flex flex-col ${height} md:h-[65dvh] w-full max-w-full bg-white rounded-[1.5rem] border border-slate-100 shadow-2xl overflow-hidden relative mx-auto`}>
       {/* Header */}
       <div className="px-4 py-3 border-b border-slate-100 bg-white/80 backdrop-blur-xl flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
