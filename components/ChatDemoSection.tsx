@@ -17,12 +17,18 @@ type LocalMessage = {
   time: string;
 };
 
+interface AgentResource {
+  config?: { recommended_questions?: string[]; suggested_queries?: string[] };
+  metadata?: { recommended_questions?: string[] };
+  sendMessage: (text: string, task: Task<any, any> | null) => Promise<Task<any, any>>;
+}
+
 export default function ChatDemoSection() {
   const [messages, setMessages] = useState<LocalMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [recommendedQuestions, setRecommendedQuestions] = useState<string[]>([]);
-  const [agentInstance, setAgentInstance] = useState<Agent | null>(null);
+  const [agentInstance, setAgentInstance] = useState<AgentResource | null>(null);
   const [currentTask, setCurrentTask] = useState<Task<any, any> | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +64,7 @@ export default function ChatDemoSection() {
 
           const client = new Client(keyInstance);
           const agent = await Agent.get(AGENT_ID, client);
-          setAgentInstance(agent);
+          setAgentInstance(agent as unknown as AgentResource);
 
           // Fetch initial recommended questions from agent config
           const config = (agent as any).config || {};
@@ -126,6 +132,7 @@ export default function ChatDemoSection() {
 
     currentTask.addEventListener("message", handleMessage);
     return () => {
+      currentTask.removeEventListener("message", handleMessage);
       currentTask.unsubscribe();
     };
   }, [currentTask]);
@@ -234,7 +241,7 @@ export default function ChatDemoSection() {
               </div>
 
               {/* Chat Container */}
-              <div className="relative flex flex-col h-[600px] md:h-[650px] w-full bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] overflow-hidden border border-slate-100/50">
+              <div className="relative flex flex-col h-[600px] md:h-[650px] w-full bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] overflow-hidden border border-slate-100/50" style={{ willChange: "transform" }}>
                 
                 {/* Chat Header - Glassmorphism Bento Style */}
                 <div className="px-5 md:px-10 py-4 md:py-5 border-b border-slate-100/50 bg-white/70 backdrop-blur-xl sticky top-0 z-10">
