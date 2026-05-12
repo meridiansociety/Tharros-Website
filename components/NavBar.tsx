@@ -68,8 +68,8 @@ export default function NavBar() {
             <Image
               src="/tharros-logo.svg"
               alt="Tharros"
-              width={110}
-              height={28}
+              width={120}
+              height={40}
               priority
               style={{ width: "auto", height: "auto" }}
               className="scale-100 md:scale-110"
