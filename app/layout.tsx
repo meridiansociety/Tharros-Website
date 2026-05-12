@@ -108,27 +108,90 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Tharros",
-    "image": "https://tharros.ca/og-image.jpg",
-    "@id": "https://tharros.ca",
-    "url": "https://tharros.ca",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ottawa",
-      "addressRegion": "ON",
-      "addressCountry": "CA"
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Tharros",
+      "alternateName": "Tharros AI Studio",
+      "url": "https://tharros.ca",
+      "logo": "https://tharros.ca/tharros-logo.svg",
+      "sameAs": [
+        "https://linkedin.com/company/tharros-ai"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "",
+        "contactType": "customer service",
+        "email": "Magnus.Abdelnour@gmail.com",
+        "areaServed": "CA",
+        "availableLanguage": "en"
+      }
     },
-    "description": "Tailored AI agents for Ottawa small businesses. We automate lead capture, customer service, and admin tasks.",
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "09:00",
-      "closes": "17:00"
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Tharros",
+      "image": "https://tharros.ca/og-image.jpg",
+      "@id": "https://tharros.ca",
+      "url": "https://tharros.ca",
+      "telephone": "",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Kanata",
+        "addressLocality": "Ottawa",
+        "addressRegion": "ON",
+        "postalCode": "K2K",
+        "addressCountry": "CA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 45.3483,
+        "longitude": -75.9103
+      },
+      "description": "Custom AI agents for Ottawa trades and professional services. Automating lead capture and office admin.",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "priceRange": "$$"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "AI Automation and Agent Development",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Tharros"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ottawa"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "AI Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Custom Lead Intake Agents"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CRM & Admin Automation"
+            }
+          }
+        ]
+      }
     }
-  };
+  ];
 
   return (
     <html lang="en" className={`${inter.variable} antialiased`}>
