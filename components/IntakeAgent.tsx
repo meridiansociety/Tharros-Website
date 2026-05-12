@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Client, Key, Agent, type Task } from "@relevanceai/sdk";
+import { Client, Key, Agent, Workforce, type Task } from "@relevanceai/sdk";
 import NavBar from "./NavBar";
 import FooterSection from "./FooterSection";
 
@@ -43,27 +43,47 @@ export default function IntakeAgent() {
             key: stored.embedKey,
             region: REGION as any,
             project: PROJECT,
-            agentId: AGENT_ID,
+            ...(stored.isWorkforce ? { workforceId: AGENT_ID } : { agentId: AGENT_ID }),
             taskPrefix: stored.conversationPrefix,
           });
         } else {
-          keyInstance = await Key.generateEmbedKey({
-            region: REGION as any,
-            project: PROJECT,
-            agentId: AGENT_ID,
-          });
+          try {
+            keyInstance = await Key.generateEmbedKey({
+              region: REGION as any,
+              project: PROJECT,
+              agentId: AGENT_ID,
+            });
+          } catch (e) {
+            console.warn("Agent embed key fetch failed, attempting workforce fallback...");
+            keyInstance = await Key.generateEmbedKey({
+              region: REGION as any,
+              project: PROJECT,
+              workforceId: AGENT_ID,
+            });
+            (keyInstance as any)._isWorkforce = true;
+          }
+          
           const { key: embedKey, taskPrefix } = keyInstance.toJSON();
           if (typeof window !== "undefined") {
-            localStorage.setItem(storageKey, JSON.stringify({ embedKey, conversationPrefix: taskPrefix }));
+            localStorage.setItem(storageKey, JSON.stringify({ 
+              embedKey, 
+              conversationPrefix: taskPrefix,
+              isWorkforce: (keyInstance as any)._isWorkforce 
+            }));
           }
         }
 
         const client = new Client(keyInstance);
-        const agent = await Agent.get(AGENT_ID, client);
-        setAgentInstance(agent);
+        let resource;
+        if ((keyInstance as any)._isWorkforce || stored?.isWorkforce) {
+          resource = await Workforce.get(AGENT_ID, client);
+        } else {
+          resource = await Agent.get(AGENT_ID, client);
+        }
+        setAgentInstance(resource as any);
 
-        const config = (agent as any).config || {};
-        const metadata = (agent as any).metadata || {};
+        const config = (resource as any).config || {};
+        const metadata = (resource as any).metadata || {};
         const initialQuestions = config.recommended_questions || metadata.recommended_questions || [];
         
         if (initialQuestions.length > 0) {
