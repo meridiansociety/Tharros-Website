@@ -9,24 +9,27 @@ Tharros is an Ottawa-based specialized studio dedicated to building high-perform
 We believe small businesses don't need "corporate AI strategies"—they need lightweight agents that work on Tuesday morning when the phone won't stop ringing.
 
 - **Tailored, Not Generic**: Every agent is custom-trained on specific business knowledge.
-- **Executive Console**: Minimalist, industrial-grade interfaces that prioritize precision over "bubbly" social aesthetics.
-- **Bento Grid Architecture**: We use asymmetric, high-density layouts to display complex information with clarity and authority.
-- **Local Expertise**: Built in Ottawa, for Ottawa. We understand the context of Kanata trades, Centretown law, and Glebe services.
+- **Industrial Aesthetics**: Minimalist, high-performance interfaces featuring CRT scanlines, geometric grid overlays, and a "Command Console" persona.
+- **Cinematic Navigation**: Optimized `PageTransition` system providing seamless, 250ms motion-orchestrated route changes.
+- **Bento Grid Architecture**: Asymmetric, high-density layouts for clear information hierarchy.
+- **Performance Hardened**: Implemented `content-visibility: auto`, dynamic imports, and GPU acceleration for flawless mobile performance.
+- **Hyper-Local SEO**: Comprehensive JSON-LD suite (LocalBusiness, Organization, Service) tailored for the Ottawa-Kanata market.
 
 ## 🛠 Tech Stack
 
 - **Core**: Next.js (App Router), React 19, TypeScript
-- **Logic**: Relevance AI SDK
-- **Styling**: Tailwind CSS
+- **Logic**: Relevance AI SDK (CRM Intake Agent Model)
+- **Styling**: Tailwind CSS 4.0
 - **Animations**: motion/react (Framer Motion)
-- **Deployment**: Vercel
+- **Performance**: Content-visibility, Progressive Hydration, GPU acceleration
 
 ## 📁 Project Structure
 
 - `/app`: Next.js App Router pages and global configurations.
 - `/components`: Modular UI components (Hero, ChatDemo, ProblemSection, etc.).
+- `/components/wrappers`: Client-side hydration wrappers for heavy AI components.
 - `/public`: Static assets (Logos, OG images, favicon, icons).
-- `THARROS_KNOWLEDGE_BASE.md`: The definitive source of truth for the Tharros brand mission, capabilities, and personality.
+- `THARROS_KNOWLEDGE_BASE.md`: The definitive source of truth for the Tharros brand mission.
 - `AGENTS.md`: Internal guidelines for AI agent behavior and interface standards.
 - `CLAUDE.md`: Developer-facing guidelines for design systems and code style.
 

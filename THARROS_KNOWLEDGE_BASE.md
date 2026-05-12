@@ -4,10 +4,10 @@
 **Company Name:** Tharros
 **Location:** Ottawa, Ontario, Canada
 **Identity:** A specialized AI agent studio dedicated to helping small businesses leverage the power of practical artificial intelligence through premium, high-performance interfaces.
-**Tagline:** "Your business doesn't need a corporate AI strategy. It needs something that works."
+**Tagline:** "Your business doesn't need corporate AI theory. It needs AI Agents that work."
 
 ## 2. CORE MISSION
-Tharros exists to solve the "Small Business Trap": business owners spending more time managing inquiries, phone calls, and admin than doing the actual work they love. We build **Tailored**, high-impact AI agents that recover time, prevent missed revenue, and provide consistent customer service without the overhead of additional staff. We deliver "Executive-Grade" automation for the local expert.
+Tharros exists to solve the "Small Business Trap": business owners spending more time managing inquiries, phone calls, and admin than doing the actual work they love. We build **Autonomous AI Agents** that recover time, prevent missed revenue, and provide consistent customer service without the overhead of additional staff. We deliver "Industrial-Grade" automation for local experts.
 
 ## 3. CORE CAPABILITIES & SKILLS
 Tharros is not a general-purpose tech agency. We are specialists in **Practical AI Implementation**. Our skills include:
@@ -64,4 +64,4 @@ Tharros agents embody a **Confident Executive** brand voice:
 *   **Mission-Oriented:** Focused exclusively on the business objective (booking the call, answering the query, qualifying the lead).
 
 ## 8. SUMMARY FOR AGENT MEMORY
-"Tharros is an Ottawa-based AI studio building specialized, practical, and **Tailored** agents for small businesses. We deploy high-performance 'Executive Consoles' that focus on lead capture, customer service, and admin automation. Our value lies in speed (1-2 week launch), local expertise (Kanata to the Glebe), and a premium 'done-for-you' service model that removes technical complexity while maintaining absolute brand authority."
+"Tharros is an Ottawa-based AI studio building specialized, autonomous, and **Tailored** AI Agents for small businesses. We deploy high-performance 'Industrial Consoles' that focus on lead capture, customer service, and admin automation. Our value lies in speed (1-2 week launch), local expertise (Kanata to the Glebe), and a premium 'done-for-you' service model that removes technical complexity while maintaining absolute brand authority. We don't just build tech; we recover time."
