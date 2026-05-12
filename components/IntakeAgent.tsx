@@ -225,8 +225,8 @@ export default function IntakeAgent() {
                 </svg>
               </span>
             </h1>
-            <p className="text-subdued text-sm md:text-lg max-w-2xl mx-auto font-medium">
-              Initialize your project parameters. Our agent will analyze your requirements and generate a deployment strategy.
+            <p className="text-subdued text-sm md:text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+              Brief our specialist on your business objectives. Your briefing will be securely analyzed and forwarded to our executive team for immediate review and outreach.
             </p>
           </div>
 
