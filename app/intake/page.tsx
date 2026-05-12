@@ -1,10 +1,5 @@
-import dynamic from "next/dynamic";
+import IntakeAgentWrapper from "@/components/IntakeAgentWrapper";
 import { Metadata } from "next";
-
-const IntakeAgent = dynamic(() => import("@/components/IntakeAgent"), {
-  ssr: false,
-  loading: () => <div className="min-h-screen bg-white" />
-});
 
 export const metadata: Metadata = {
   title: "Client Intake & AI Briefing",
@@ -20,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function IntakePage() {
-  return <IntakeAgent />;
+  return <IntakeAgentWrapper />;
 }
