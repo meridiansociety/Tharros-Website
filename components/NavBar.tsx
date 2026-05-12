@@ -67,12 +67,10 @@ export default function NavBar() {
           >
             <Image
               src="/tharros-logo.svg"
-              alt="Tharros"
-              width={140}
-              height={36}
               priority
               style={{ width: "auto", height: "auto" }}
               className="scale-[0.8] origin-left md:scale-110"
+              alt="Tharros AI Automation Logo"
             />
           </a>
         </Magnetic>
@@ -94,6 +92,7 @@ export default function NavBar() {
         <Magnetic strength={0.2}>
           <a
             href="/intake"
+            aria-label="Start your AI consultation"
             className="hidden md:inline-block primary-button px-5 py-2 text-sm"
           >
             Get in touch
@@ -158,13 +157,14 @@ export default function NavBar() {
                 transition={{ delay: navLinks.length * 0.08, duration: 0.5 }}
                 className="w-full max-w-xs mt-4"
               >
-                <Link
+                <a
                   href="/intake"
+                  aria-label="Start your AI intake journey"
                   onClick={() => setMobileOpen(false)}
                   className="primary-button flex items-center justify-center px-8 py-4 text-lg shadow-2xl shadow-slate-900/10"
                 >
                   Get in touch
-                </Link>
+                </a>
                 <div className="mt-6 text-center">
                   <a 
                     href="mailto:Magnus.Abdelnour@gmail.com?subject=Inquiry" 

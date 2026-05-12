@@ -32,7 +32,7 @@ export default function HeroSection() {
             transition={{ delay: 0.1 }}
             className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-900/[0.03] border border-slate-900/5 backdrop-blur-sm text-[10px] font-extrabold uppercase tracking-[0.25em] text-slate-900/60 mb-6 md:mb-8 hover:bg-slate-900/[0.05] transition-colors cursor-default"
           >
-            <img src="/canada-flag.svg" alt="Canada" className="w-5 h-3 rounded-[2px] shadow-sm" />
+            <img src="/canada-flag.svg" alt="Canadian Flag" className="w-5 h-3 rounded-[2px] shadow-sm" />
             Keep it Canadian
           </motion.div>
 
@@ -57,12 +57,14 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 md:gap-6">
             <a
               href="/intake"
+              aria-label="Start your AI intake journey"
               className="primary-button px-8 py-4 md:px-10 md:py-5 text-base md:text-lg w-full sm:w-auto"
             >
               Start your journey
             </a>
             <a
               href="#demo"
+              aria-label="View our live AI agent demo"
               className="text-text font-bold text-sm md:text-base uppercase tracking-widest hover:text-accent-3 transition-colors px-4 py-3 text-center"
             >
               Live Demo

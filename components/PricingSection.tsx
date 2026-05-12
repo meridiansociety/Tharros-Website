@@ -95,12 +95,13 @@ export default function PricingSection() {
                 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <Magnetic strength={0.2}>
-                    <Link
+                    <a
                       href="/intake"
+                      aria-label="Request a custom AI automation quote"
                       className="primary-button px-10 py-5 text-lg w-full sm:w-auto"
                     >
                       Get your custom quote
-                    </Link>
+                    </a>
                   </Magnetic>
                 </div>
                 <p className="mt-6 text-muted text-sm font-medium">

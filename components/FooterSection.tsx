@@ -25,12 +25,14 @@ export default function FooterSection() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16 md:mb-20">
             <a
               href="/intake"
+              aria-label="Start your AI intake journey and consultation"
               className="primary-button px-10 py-5 text-xl"
             >
               Start your journey
             </a>
             <a 
               href="mailto:Magnus.Abdelnour@gmail.com" 
+              aria-label="Email Magnus Abdelnour for business inquiries"
               className="text-text font-bold text-base uppercase tracking-widest hover:text-accent-3 transition-colors px-4 py-2"
             >
               Email Us
@@ -39,7 +41,7 @@ export default function FooterSection() {
 
           <div className="subtle-divider mb-6" />
           <div className="text-subdued text-sm flex flex-col md:flex-row items-center justify-between gap-3">
-            <span className="inline-flex items-center gap-2">&copy; {year} Tharros. Ottawa, Ontario. <img src="/canada-flag.svg" alt="" className="w-4 h-2.5 rounded-[1px]" /> Keep it Canadian.</span>
+            <span className="inline-flex items-center gap-2">&copy; {year} Tharros. Ottawa, Ontario. <img src="/canada-flag.svg" alt="Canadian Flag" className="w-4 h-2.5 rounded-[1px]" /> Keep it Canadian.</span>
             <span className="text-muted text-xs">AI agents for small businesses that need to move fast.</span>
           </div>
         </AnimatedSection>
