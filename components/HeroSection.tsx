@@ -31,13 +31,7 @@ export default function HeroSection() {
             transition={{ delay: 0.1 }}
             className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-900/[0.03] border border-slate-900/5 backdrop-blur-sm text-[10px] font-extrabold uppercase tracking-[0.25em] text-slate-900/60 mb-8 hover:bg-slate-900/[0.05] transition-colors cursor-default"
           >
-            <span className="flex items-center justify-center w-5 h-3.5 rounded-[2px] overflow-hidden shadow-sm ring-1 ring-black/5">
-              <svg viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg">
-                <rect width="16" height="8" fill="#FF0000"/>
-                <rect x="4" width="8" height="8" fill="#FFFFFF"/>
-                <path d="M8 1.5L8.5 3L10 3L8.8 4L9.3 5.5L8 4.5L6.7 5.5L7.2 4L6 3L7.5 3L8 1.5Z" fill="#FF0000"/>
-              </svg>
-            </span>
+            <span className="text-base leading-none">🇨🇦</span>
             Keep it Canadian
           </motion.div>
 
