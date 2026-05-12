@@ -197,7 +197,7 @@ body {
   .scanline {
     width: 100%;
     height: 100px;
-    z-index: 5;
+    z-index: 1; /* Lowered to ensure it's behind content */
     background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0) 0%,
@@ -221,11 +221,24 @@ body {
       linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
+    z-index: 0;
   }
 
   .content-visibility-auto {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 500px;
+    contain-intrinsic-size: 1px 800px; /* More realistic for large sections */
+  }
+
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+    }
   }
 
   .gpu-accelerated {

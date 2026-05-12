@@ -17,7 +17,7 @@ export default function FooterSection() {
   };
 
   return (
-    <footer id="contact" className="py-16 md:py-24 px-6 md:px-12 relative overflow-hidden bg-bg">
+    <footer id="contact" className="section-padding px-6 md:px-12 relative overflow-hidden bg-bg">
       <div className="max-w-4xl mx-auto text-center relative">
         <AnimatedSection variant="scale-in">
           <p className="section-label mb-6">

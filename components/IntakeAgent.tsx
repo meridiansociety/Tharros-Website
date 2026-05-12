@@ -189,7 +189,7 @@ export default function IntakeAgent() {
     <div className="min-h-screen bg-[#fafafa] flex flex-col font-sans selection:bg-accent-3/10 selection:text-accent-3">
       <NavBar />
       
-      <main className="flex-1 pt-24 pb-12 px-4 md:px-8 flex flex-col items-center justify-center relative overflow-hidden">
+      <main className="flex-1 pt-32 pb-24 px-4 md:px-8 flex flex-col items-center justify-center relative overflow-hidden">
         {/* Background Sophistication: Industrial Geometric Depth */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden industrial-grid">
           <div className="scanline" />

@@ -185,7 +185,7 @@ export default function ChatDemoSection() {
   };
 
   return (
-    <section id="demo" className="py-12 md:py-16 px-4 md:px-12 relative overflow-hidden bg-white industrial-grid">
+    <section id="demo" className="section-padding px-4 md:px-12 relative overflow-hidden bg-white industrial-grid">
       {/* Background Sophistication */}
       <div className="scanline" />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-slate-50/50 -skew-x-12 translate-x-1/4 pointer-events-none" />
