@@ -92,12 +92,12 @@ export default function NavBar() {
         </nav>
 
         <Magnetic strength={0.2}>
-          <Link
+          <a
             href="/intake"
             className="hidden md:inline-block primary-button px-5 py-2 text-sm"
           >
             Get in touch
-          </Link>
+          </a>
         </Magnetic>
 
         <button
