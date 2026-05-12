@@ -5,7 +5,7 @@ import Magnetic from "./Magnetic";
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="relative min-h-[100svh] flex items-center justify-center px-6 pt-40 pb-24 overflow-hidden bg-white">
+    <section id="hero" className="relative min-h-[100svh] flex items-center justify-center px-6 pt-28 pb-24 overflow-hidden bg-white">
       {/* Background: Industrial Geometric Depth */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-slate-50 -skew-x-12 translate-x-1/4 opacity-70" />
@@ -29,9 +29,15 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-6"
+            className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-900/[0.03] border border-slate-900/5 backdrop-blur-sm text-[10px] font-extrabold uppercase tracking-[0.25em] text-slate-900/60 mb-8 hover:bg-slate-900/[0.05] transition-colors cursor-default"
           >
-            <span className="text-base leading-none">🇨🇦</span>
+            <span className="flex items-center justify-center w-5 h-3.5 rounded-[2px] overflow-hidden shadow-sm ring-1 ring-black/5">
+              <svg viewBox="0 0 16 8" xmlns="http://www.w3.org/2000/svg">
+                <rect width="16" height="8" fill="#FF0000"/>
+                <rect x="4" width="8" height="8" fill="#FFFFFF"/>
+                <path d="M8 1.5L8.5 3L10 3L8.8 4L9.3 5.5L8 4.5L6.7 5.5L7.2 4L6 3L7.5 3L8 1.5Z" fill="#FF0000"/>
+              </svg>
+            </span>
             Keep it Canadian
           </motion.div>
 
