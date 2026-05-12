@@ -13,6 +13,10 @@ const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION || "";
 const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT || "";
 const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_INTAKE_AGENT_ID || process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID || "";
 
+// Performance: Pre-calculate time formatter
+const timeFormatter = new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' });
+const formatTime = () => timeFormatter.format(new Date());
+
 type LocalMessage = {
   id: string;
   sender: "user" | "agent";
@@ -116,7 +120,7 @@ export default function IntakeAgent() {
             id: "1",
             sender: "agent",
             text: "Hello! I'm the Tharros Intake Specialist. I'm here to learn about your business and how we can help automate your workflow. What can I help you with today?",
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            time: formatTime(),
           }
         ]);
         setIsLoading(false);
@@ -140,7 +144,7 @@ export default function IntakeAgent() {
             id: message.id,
             sender: "agent",
             text: message.text || "...",
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            time: formatTime(),
           }];
         });
         if (message.details?.recommended_questions) setRecommendedQuestions(message.details.recommended_questions);
@@ -175,7 +179,7 @@ export default function IntakeAgent() {
       id: Date.now().toString(),
       sender: "user",
       text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      time: formatTime(),
     }]);
 
     setIsTyping(true);

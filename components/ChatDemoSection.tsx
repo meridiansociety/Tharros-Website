@@ -12,6 +12,10 @@ const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION || "";
 const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT || "";
 const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID || "";
 
+// Performance: Pre-calculate time formatter
+const timeFormatter = new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' });
+const formatTime = () => timeFormatter.format(new Date());
+
 type LocalMessage = {
   id: string;
   sender: "user" | "agent";
@@ -88,7 +92,7 @@ export default function ChatDemoSection() {
               id: "1",
               sender: "agent",
               text: "Hi! I'm your Tharros-powered AI agent. Ask me anything about our services.",
-              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+              time: formatTime(),
             }
           ]);
         } catch (innerErr) {
@@ -118,7 +122,7 @@ export default function ChatDemoSection() {
             id: message.id,
             sender: "agent",
             text: message.text || "...",
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            time: formatTime(),
           }];
         });
         
@@ -165,7 +169,7 @@ export default function ChatDemoSection() {
       id: userMsgId,
       sender: "user",
       text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      time: formatTime(),
     }]);
 
     setIsTyping(true);
