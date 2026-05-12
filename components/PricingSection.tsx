@@ -41,7 +41,7 @@ const pricingFactors = [
 export default function PricingSection() {
   return (
     <section className="section-padding px-6 md:px-12 xl:px-20 relative overflow-hidden bg-white">
-      <div id="pricing" className="absolute top-12 md:top-20 pointer-events-none" />
+      <div id="pricing" className="absolute top-16 md:top-24 xl:top-32 pointer-events-none" />
       {/* Decorative Flow */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-slate-50 to-transparent opacity-50" />
       {/* Background decoration */}

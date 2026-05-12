@@ -51,7 +51,7 @@ const agents = [
 export default function WhatWeBuildsSection() {
   return (
     <section className="section-padding px-6 md:px-12 xl:px-20 relative overflow-hidden bg-white">
-      <div id="solutions" className="absolute top-12 md:top-20 pointer-events-none" />
+      <div id="solutions" className="absolute top-16 md:top-24 xl:top-32 pointer-events-none" />
       {/* Decorative Flow */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-slate-50 to-transparent opacity-50" />
       <div className="max-w-7xl xl:max-w-[90rem] mx-auto relative">

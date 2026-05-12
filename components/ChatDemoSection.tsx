@@ -187,7 +187,7 @@ export default function ChatDemoSection() {
   return (
     <section className="section-padding px-4 md:px-12 xl:px-20 relative overflow-hidden bg-white industrial-grid">
       {/* Anchor for navigation */}
-      <div id="demo" className="absolute top-12 md:top-20 pointer-events-none" />
+      <div id="demo" className="absolute top-16 md:top-24 xl:top-32 pointer-events-none" />
       
       {/* Background Sophistication */}
       <div className="scanline" />
