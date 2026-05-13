@@ -127,7 +127,7 @@ export default function IntakeForm() {
                       </div>
 
                       <p className="text-center text-[9px] text-slate-300 font-bold uppercase tracking-[0.2em]">
-                        Secure submission // Q3 2026 intake active
+                        Secure submission
                       </p>
                     </form>
                   </div>
