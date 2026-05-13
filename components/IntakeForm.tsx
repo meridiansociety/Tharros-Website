@@ -1,44 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { motion, AnimatePresence } from "motion/react";
 import NavBar from "./NavBar";
 import FooterSection from "./FooterSection";
 import AnimatedSection from "./AnimatedSection";
 
 export default function IntakeForm() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-      const response = await fetch("https://formspree.io/f/xvzlykgz", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        const errorData = await response.json();
-        alert(errorData.error || "Submission failed. Please try again.");
-      }
-    } catch (error) {
-      alert("An error occurred. Please check your connection and try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [state, handleSubmit] = useForm("xvzlykgz");
 
   return (
     <div className="min-h-screen bg-[#fafafa] flex flex-col font-sans selection:bg-accent-3/10 selection:text-accent-3">
@@ -72,7 +41,7 @@ export default function IntakeForm() {
 
         <div className="w-full max-w-6xl relative z-10">
           <AnimatePresence mode="wait">
-            {!isSubmitted ? (
+            {!state.succeeded ? (
               <motion.div 
                 key="form"
                 initial={{ opacity: 0, y: 20 }}
@@ -118,30 +87,34 @@ export default function IntakeForm() {
                         <div className="space-y-2">
                           <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Full Name</label>
                           <input required name="name" type="text" placeholder="John Doe" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm" />
+                          <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-500 text-[10px] font-bold mt-1" />
                         </div>
                         <div className="space-y-2">
                           <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Email</label>
                           <input required name="email" type="email" placeholder="john@company.com" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm" />
+                          <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-[10px] font-bold mt-1" />
                         </div>
                       </div>
 
                       <div className="space-y-2">
                         <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Business / Company</label>
                         <input required name="company" type="text" placeholder="Organization Name" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm" />
+                        <ValidationError prefix="Company" field="company" errors={state.errors} className="text-red-500 text-[10px] font-bold mt-1" />
                       </div>
 
                       <div className="space-y-2">
                         <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Needs</label>
                         <textarea required name="needs" rows={4} placeholder="Tell us about your goals. What specific tasks or inquiries should your AI agent handle?" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm resize-none" />
+                        <ValidationError prefix="Needs" field="needs" errors={state.errors} className="text-red-500 text-[10px] font-bold mt-1" />
                       </div>
 
                       <div className="pt-4">
                         <button 
-                          disabled={isLoading}
+                          disabled={state.submitting}
                           type="submit" 
                           className="w-full bg-slate-900 text-white font-bold py-5 rounded-xl uppercase tracking-[0.3em] text-xs hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3"
                         >
-                          {isLoading ? (
+                          {state.submitting ? (
                             <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
                           ) : "Submit Project Details"}
                         </button>
@@ -171,7 +144,7 @@ export default function IntakeForm() {
                   Thanks for reaching out. We've received your project details and our team will contact you within one business day to discuss next steps.
                 </p>
                 <button 
-                  onClick={() => setIsSubmitted(false)}
+                  onClick={() => window.location.reload()}
                   className="px-8 py-3 bg-white border border-slate-200 text-slate-500 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"
                 >
                   New Request
