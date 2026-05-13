@@ -9,6 +9,7 @@ import Magnetic from "./Magnetic";
 
 const navLinks = [
   { label: "Solutions", href: "/#solutions" },
+  { label: "Clients", href: "/clients" },
   { label: "Try Agent", href: "/#demo" },
   { label: "Pricing", href: "/#pricing" },
 ];
@@ -88,9 +89,11 @@ export default function NavBar() {
           >
             <Image
               src="/tharros-logo.svg"
+              width={160}
+              height={40}
               priority
               style={{ width: "auto", height: "auto" }}
-              className="scale-[0.8] origin-left md:scale-110"
+              className="scale-90 md:scale-100"
               alt="Tharros AI Automation Logo"
             />
           </a>
