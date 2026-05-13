@@ -72,29 +72,27 @@ export default function WhyTharrosSection() {
 
         {/* Founder quote */}
         <AnimatedSection variant="scale-in">
-          <div className="max-w-xl md:max-w-3xl xl:max-w-4xl mx-auto">
-            <div className="bg-slate-900 border border-slate-800 rounded-[3rem] p-8 md:p-10 xl:p-12 text-center relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
+          <div className="max-w-5xl md:max-w-6xl xl:max-w-[80rem] mx-auto">
+            <div className="bg-slate-900 border border-slate-800 hover:border-accent-3/50 rounded-[3rem] px-8 md:px-20 py-8 md:py-12 text-center relative overflow-hidden group shadow-2xl hover:-translate-y-1 hover:scale-[1.01] transition-all duration-500">
               {/* Subtle background pattern */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:32px_32px]" />
               
               <div className="relative z-10">
-
-                
-                <p className="text-white text-xl md:text-2xl xl:text-4xl leading-[1.2] mb-10 font-bold tracking-tighter max-w-4xl mx-auto">
+                <p className="text-white text-lg md:text-xl xl:text-2xl leading-[1.2] mb-6 font-bold tracking-tighter max-w-5xl mx-auto">
                   &ldquo;Ottawa small businesses don&apos;t need a corporate AI strategy. They
                   need something that <span className="text-accent-3">works on Tuesday morning</span> when the phone
                   won&apos;t stop ringing.&rdquo;
                 </p>
                 
-                <div className="flex flex-col items-center justify-center gap-6">
-                  <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-slate-950 font-black text-xl shadow-2xl">
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-950 font-black text-base shadow-2xl transition-transform group-hover:scale-110">
                     M
                   </div>
                   <div>
-                    <p className="text-white text-lg font-bold tracking-tight">
+                    <p className="text-white text-sm font-bold tracking-tight">
                       Magnus Abdelnour
                     </p>
-                    <p className="text-accent-3 text-[10px] font-black uppercase tracking-[0.3em] mt-1">Founder // Tharros</p>
+                    <p className="text-accent-3 text-[8px] font-black uppercase tracking-[0.3em] mt-0.5">Founder // Tharros</p>
                   </div>
                 </div>
               </div>

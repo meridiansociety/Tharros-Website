@@ -21,6 +21,7 @@ const pricingFactors = [
         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
       </svg>
     ),
+    title: "Data Depth",
     description: "The volume of training data: from basic FAQs to complex technical manuals."
   },
   {
@@ -77,37 +78,37 @@ export default function PricingSection() {
         </div>
 
         <AnimatedSection delay={0.3}>
-          <div className="max-w-4xl xl:max-w-6xl mx-auto">
-            <div className="bg-white border border-slate-200 p-8 md:p-12 xl:p-16 rounded-3xl md:rounded-[3rem] text-center relative overflow-hidden group shadow-2xl">
+          <div className="max-w-5xl md:max-w-6xl xl:max-w-[80rem] mx-auto">
+            <div className="bg-white border border-slate-200 px-8 md:px-16 py-8 md:py-12 rounded-[3rem] text-center relative overflow-hidden group shadow-2xl hover:-translate-y-1 hover:scale-[1.01] hover:border-accent-3/50 transition-all duration-500">
               {/* Subtle inner glow */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:32px_32px]" />
               
               <div className="relative z-10">
-                <div className="inline-flex items-center gap-4 mb-10 px-6 py-2 rounded-full bg-slate-950/5 border border-slate-900/5">
-                  <span className="text-[10px] font-black text-slate-900/30 uppercase tracking-[0.5em]">Investment_Justification</span>
+                <div className="inline-flex items-center gap-4 mb-6 px-5 py-1.5 rounded-full bg-slate-950/5 border border-slate-900/5">
+                  <span className="text-[9px] font-black text-slate-900/40 uppercase tracking-[0.5em]">COMMERCIAL LOGIC</span>
                 </div>
                 
-                <h3 className="text-3xl md:text-4xl xl:text-5xl font-bold text-slate-900 mb-8 tracking-tighter leading-tight">
+                <h3 className="text-2xl md:text-3xl xl:text-4xl font-bold text-slate-900 mb-6 tracking-tighter leading-tight">
                   Why no fixed price list?
                 </h3>
-                <p className="text-slate-600 text-lg md:text-2xl xl:text-3xl leading-relaxed mb-12 max-w-4xl mx-auto font-medium opacity-80">
+                <p className="text-slate-600 text-sm md:text-lg xl:text-xl leading-relaxed mb-8 max-w-4xl mx-auto font-medium opacity-80">
                   Because an AI agent for a boutique law firm has different requirements than one for a high-volume plumbing contractor. 
                   We provide a firm, no-obligation quote following our initial briefing.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                   <Magnetic strength={0.2}>
                     <a
                       href="/intake"
                       aria-label="Request a custom AI automation quote"
-                      className="primary-button px-12 py-6 md:px-16 md:py-8 xl:px-20 xl:py-10 text-sm md:text-xl xl:text-2xl w-full sm:w-auto relative overflow-hidden group shadow-2xl"
+                      className="primary-button px-10 py-5 md:px-12 md:py-6 xl:px-14 xl:py-7 text-xs md:text-lg xl:text-xl w-full sm:w-auto relative overflow-hidden group shadow-2xl"
                     >
                       <span className="relative z-10">Request Briefing</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
                     </a>
                   </Magnetic>
                 </div>
-                <p className="mt-12 text-slate-400 text-sm font-bold uppercase tracking-[0.2em]">
+                <p className="mt-10 text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">
                   Free consultation &bull; <a href="mailto:tharrosdev@gmail.com" className="hover:text-accent-3 underline transition-colors">Direct Inquiry</a> &bull; Ottawa Node
                 </p>
               </div>
