@@ -14,14 +14,16 @@ export default function Home() {
     <>
       <main>
         <HeroSection />
-        <ProblemSection />
-        <ChatDemoSectionWrapper />
-        <ModelTiersSection />
-        <WhatWeBuildsSection />
-        <HowItWorksSection />
-        <WhyTharrosSection />
-        <PricingSection />
-        <FooterSection />
+        <div className="content-visibility-auto gpu-accelerated">
+          <ProblemSection />
+          <ChatDemoSectionWrapper />
+          <ModelTiersSection />
+          <WhatWeBuildsSection />
+          <HowItWorksSection />
+          <WhyTharrosSection />
+          <PricingSection />
+          <FooterSection />
+        </div>
       </main>
     </>
   );

@@ -116,7 +116,7 @@ export default function NavBar() {
         style={{ width: "min(94%, 1300px)" }}
       >
         <Magnetic strength={0.15}>
-          <a
+          <Link
             href="/"
             onClick={(e) => handleLinkClick(e, "/")}
             className="relative z-10 block"
@@ -131,7 +131,7 @@ export default function NavBar() {
               className="scale-90 md:scale-100"
               alt="Tharros AI Automation Logo"
             />
-          </a>
+          </Link>
         </Magnetic>
 
         <nav className="hidden md:flex items-center gap-2 lg:gap-4">
@@ -150,14 +150,14 @@ export default function NavBar() {
         </nav>
 
         <Magnetic strength={0.2}>
-          <a
+          <Link
             href="/intake"
-            onClick={(e) => handleLinkClick(e, "/intake")}
+            prefetch={false}
             aria-label="Start your AI consultation"
             className="hidden md:inline-block primary-button px-5 py-2 text-sm"
           >
             Get Started
-          </a>
+          </Link>
         </Magnetic>
 
         <button
@@ -221,17 +221,14 @@ export default function NavBar() {
                 transition={{ delay: navLinks.length * 0.08, duration: 0.5 }}
                 className="w-full max-w-xs mt-4"
               >
-                <a
+                <Link
                   href="/intake"
-                  aria-label="Start your AI intake journey"
-                  onClick={(e) => {
-                    handleLinkClick(e, "/intake");
-                    setMobileOpen(false);
-                  }}
+                  prefetch={false}
+                  onClick={() => setMobileOpen(false)}
                   className="primary-button flex items-center justify-center px-8 py-4 text-lg shadow-2xl shadow-slate-900/10"
                 >
                   Get Started
-                </a>
+                </Link>
                 <div className="mt-6 text-center">
                   <a 
                     href="mailto:tharrosdev@gmail.com?subject=Inquiry" 

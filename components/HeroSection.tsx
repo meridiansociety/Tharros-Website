@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import Magnetic from "./Magnetic";
@@ -30,7 +31,13 @@ export default function HeroSection() {
             transition={{ delay: 0.1 }}
             className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-900/[0.03] border border-slate-900/5 backdrop-blur-sm text-[10px] font-extrabold uppercase tracking-[0.25em] text-slate-900/60 mb-6 md:mb-8 hover:bg-slate-900/[0.05] transition-colors cursor-default"
           >
-            <img src="/canada-flag.svg" alt="Canadian Flag" className="w-5 h-3 rounded-[2px] shadow-sm" />
+            <Image 
+              src="/canada-flag.svg" 
+              alt="Canadian Flag" 
+              width={20} 
+              height={12} 
+              className="rounded-[2px] shadow-sm" 
+            />
             Keep it Canadian
           </motion.div>
 
