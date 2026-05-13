@@ -282,17 +282,21 @@ export default function ChatDemoSection() {
               Test our <span className="text-accent-3">Commercial Model</span> in real-time.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-12 md:gap-20">
-              {NEURAL_LOGIC_FEATURES.map((item, i) => (
+            <div className="flex flex-wrap justify-center gap-12 md:gap-20 lg:gap-24">
+              {NEURAL_LOGIC_FEATURES.map((feature, i) => (
                 <motion.div 
-                  key={item.title}
+                  key={feature.title}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex flex-col gap-2 text-center group cursor-default"
+                  className="flex flex-col items-center text-center max-w-[280px]"
                 >
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-accent-3 opacity-60 group-hover:opacity-100 transition-opacity">{item.title}</h4>
-                  <p className="text-xs text-slate-400 font-bold tracking-tight">{item.desc}</p>
+                  <h4 className="text-accent-3 font-black text-xs md:text-sm uppercase tracking-[0.3em] mb-4">
+                    {feature.title}
+                  </h4>
+                  <p className="text-slate-200 text-base md:text-lg lg:text-xl font-medium leading-relaxed">
+                    {feature.desc}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -314,14 +318,14 @@ export default function ChatDemoSection() {
                     Operational <br />
                     <span className="text-accent-3">Excellence.</span>
                   </h3>
-                  <p className="text-lg text-slate-300 leading-relaxed mb-12 max-w-sm">
+                  <p className="text-lg text-slate-300 leading-relaxed mb-10 max-w-sm">
                     This instance demonstrates the core intelligence used in our custom service deployments.
                   </p>
                 </div>
 
-                <div className="space-y-6 hidden lg:block">
+                <div className="space-y-4 hidden lg:block">
                   {VERIFICATION_BLOCKS.map((item) => (
-                    <div key={item.title} className="flex flex-col gap-2 p-6 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 group">
+                    <div key={item.title} className="flex flex-col gap-2 p-5 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 group">
                       <span className="text-[9px] font-black uppercase tracking-[0.3em] text-accent-3 opacity-50 group-hover:opacity-100 transition-opacity">{item.label}</span>
                       <h4 className="text-sm font-bold text-white uppercase tracking-tight">{item.title}</h4>
                       <p className="text-xs text-slate-400 leading-relaxed font-medium">{item.desc}</p>
@@ -365,7 +369,7 @@ export default function ChatDemoSection() {
                     <div className="relative flex flex-col h-[500px] xl:h-[650px] w-full bg-slate-900/40 rounded-[3rem] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.7)] overflow-hidden border border-white/10 group/console" style={{ willChange: "transform" }}>
                       
                       {/* Chat Header - Glassmorphism Bento Style */}
-                      <div className="px-8 md:px-12 py-8 border-b border-white/5 bg-slate-900/90 backdrop-blur-2xl sticky top-0 z-10">
+                      <div className="p-6 md:p-8 border-b border-white/5 bg-slate-900/90 backdrop-blur-2xl sticky top-0 z-10">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-6">
                             <div className="relative group/icon">
@@ -445,7 +449,7 @@ export default function ChatDemoSection() {
                       </div>
 
                       {/* Footer / Input Area */}
-                      <div className="p-8 md:p-10 bg-slate-900/80 border-t border-white/10 backdrop-blur-xl">
+                      <div className="p-6 md:p-7 bg-slate-900/80 border-t border-white/10 backdrop-blur-xl">
                         
                         {/* Suggestions */}
                         <AnimatePresence>

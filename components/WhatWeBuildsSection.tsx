@@ -8,7 +8,7 @@ const agents = [
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <path d="M4 18 Q14 6 24 18" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-        <circle cx="14" cy="18" r="2.5" fill="#1e293b" />
+        <circle cx="14" cy="18" r="2.5" fill="#64748b" />
         <circle cx="4" cy="18" r="2" fill="currentColor" />
         <circle cx="24" cy="18" r="2" fill="currentColor" />
       </svg>
@@ -23,7 +23,7 @@ const agents = [
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <rect x="4" y="6" width="20" height="16" rx="3" stroke="currentColor" strokeWidth="2" />
-        <path d="M9 13h10M9 17h6" stroke="#1e293b" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M9 13h10M9 17h6" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" />
         <circle cx="22" cy="6" r="3.5" fill="currentColor" />
       </svg>
     ),
@@ -37,7 +37,7 @@ const agents = [
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <circle cx="14" cy="11" r="5" stroke="currentColor" strokeWidth="2" />
-        <path d="M5 25c0-5 4-8 9-8s9 3 9 8" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
+        <path d="M5 25c0-5 4-8 9-8s9 3 9 8" stroke="#64748b" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
     name: "After-Hours Intake Agent",
@@ -71,17 +71,17 @@ export default function WhatWeBuildsSection() {
           </div>
         </AnimatedSection>
  
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 xl:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
           {agents.map((agent, i) => (
             <AnimatedSection key={agent.name} delay={i * 0.1} variant="scale-in">
               <motion.div 
-                className="clean-card p-8 md:p-12 xl:p-14 h-full flex flex-col group cursor-default shadow-2xl relative overflow-hidden"
+                className="clean-card p-7 md:p-10 xl:p-12 h-full flex flex-col group cursor-default shadow-2xl relative overflow-hidden"
               >
                 {/* Visual Depth Accent */}
                 <div className="absolute top-0 right-0 w-24 h-24 bg-accent-3/[0.05] rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 <div className="flex flex-col gap-8 mb-10 relative z-10">
-                  <div className="w-16 h-16 rounded-[1.25rem] bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-white group-hover:text-slate-950 group-hover:border-white transition-all duration-500 shrink-0 shadow-2xl">
+                  <div className="w-16 h-16 rounded-[1.25rem] bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-slate-950 group-hover:border-white transition-all duration-500 shrink-0 shadow-2xl">
                     <span className="scale-125">{agent.icon}</span>
                   </div>
                   <div className="flex flex-col gap-3">

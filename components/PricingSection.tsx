@@ -61,10 +61,10 @@ export default function PricingSection() {
           </AnimatedSection>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 xl:gap-20 mb-16 md:mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 xl:gap-8 mb-16 md:mb-20">
           {pricingFactors.map((factor, i) => (
             <AnimatedSection key={factor.title} delay={i * 0.1} variant="scale-in">
-              <div className="bg-white border border-slate-200 p-8 md:p-12 xl:p-14 flex flex-col h-full group relative overflow-hidden shadow-xl rounded-3xl md:rounded-[3rem] hover:border-accent-3/50 transition-all duration-500">
+              <div className="bg-white border border-slate-200 p-7 md:p-10 xl:p-12 flex flex-col h-full group relative overflow-hidden shadow-xl rounded-3xl md:rounded-[3rem] hover:border-accent-3/50 transition-all duration-500">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-accent-3/[0.03] rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="w-16 h-16 rounded-[1.25rem] bg-slate-950 border border-slate-900/10 flex items-center justify-center mb-8 group-hover:bg-accent-3 group-hover:text-white group-hover:border-accent-3 transition-all duration-700 shadow-xl">
                   <span className="text-white group-hover:scale-110 transition-transform">{factor.icon}</span>
@@ -78,7 +78,7 @@ export default function PricingSection() {
 
         <AnimatedSection delay={0.3}>
           <div className="max-w-4xl xl:max-w-6xl mx-auto">
-            <div className="bg-white border border-slate-200 p-8 md:p-16 xl:p-24 rounded-3xl md:rounded-[3rem] text-center relative overflow-hidden group shadow-2xl">
+            <div className="bg-white border border-slate-200 p-8 md:p-12 xl:p-16 rounded-3xl md:rounded-[3rem] text-center relative overflow-hidden group shadow-2xl">
               {/* Subtle inner glow */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:32px_32px]" />
               

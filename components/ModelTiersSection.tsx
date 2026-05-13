@@ -47,14 +47,14 @@ export default function ModelTiersSection() {
           </AnimatedSection>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 xl:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {TIERS.map((tier, i) => (
             <AnimatedSection key={tier.title} delay={i * 0.1} variant="fade-up">
               <div className="flex flex-col h-full group relative">
-                <span className={`text-[11px] font-black uppercase tracking-[0.4em] ${tier.color} mb-6 block`}>
+                <span className={`text-[11px] font-black uppercase tracking-[0.4em] ${tier.color === 'text-white/60' ? 'text-slate-400' : tier.color} mb-5 block`}>
                   {tier.label}
                 </span>
-                <h4 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tighter mb-8 leading-none group-hover:text-accent-3 transition-colors duration-500">
+                <h4 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tighter mb-6 leading-none group-hover:text-accent-3 transition-colors duration-500">
                   {tier.title}
                 </h4>
                 <p className="text-lg xl:text-xl text-slate-600 leading-relaxed font-medium group-hover:text-slate-900 transition-colors">
@@ -62,7 +62,7 @@ export default function ModelTiersSection() {
                 </p>
                 
                 {/* Visual Accent */}
-                <div className="mt-10 pt-10 border-t border-slate-200 w-16 group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                <div className="mt-8 pt-8 border-t border-slate-200 w-16 group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                 <div className="absolute -bottom-2 left-0 w-0 h-[2px] bg-accent-3 group-hover:w-full transition-all duration-700 shadow-[0_0_10px_rgba(14,165,233,0.3)]" />
               </div>
             </AnimatedSection>

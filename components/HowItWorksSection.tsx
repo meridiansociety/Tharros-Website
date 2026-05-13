@@ -47,12 +47,12 @@ export default function HowItWorksSection() {
             <div className="w-full h-full bg-gradient-to-r from-transparent via-slate-200 to-transparent rounded-full" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 xl:gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
             {steps.map((step, i) => (
               <AnimatedSection key={step.number} delay={i * 0.1}>
                 <div className="flex flex-col items-center text-center relative group">
                   {/* Step circle */}
-                  <div className="relative mb-10">
+                  <div className="relative mb-8">
                     <div className="w-[100px] h-[100px] xl:w-[120px] xl:h-[120px] rounded-full bg-white border border-slate-200 flex items-center justify-center relative z-10 shadow-xl group-hover:border-accent-3 group-hover:shadow-[0_0_30px_rgba(14,165,233,0.2)] transition-all duration-700">
                       <span className="text-slate-900 font-black text-3xl md:text-4xl xl:text-5xl tracking-tighter">
                         {step.number}
@@ -63,13 +63,13 @@ export default function HowItWorksSection() {
                   </div>
 
                   {/* Content card */}
-                  <div className="bg-white border border-slate-200 p-8 md:p-12 xl:p-14 w-full flex-1 rounded-3xl md:rounded-[3rem] shadow-xl transition-all duration-700 group-hover:border-accent-3/50">
-                    <h3 className="text-2xl md:text-3xl xl:text-4xl font-bold text-slate-900 mb-6 tracking-tighter leading-tight group-hover:text-accent-3 transition-colors">
+                  <div className="bg-white border border-slate-200 p-7 md:p-10 xl:p-12 w-full flex-1 rounded-3xl md:rounded-[3rem] shadow-xl transition-all duration-700 group-hover:border-accent-3/50">
+                    <h3 className="text-2xl md:text-3xl xl:text-4xl font-bold text-slate-900 mb-4 tracking-tighter leading-tight group-hover:text-accent-3 transition-colors">
                       {step.headline}
                     </h3>
                     <p className="text-slate-600 text-lg md:text-xl xl:text-2xl leading-relaxed font-medium group-hover:text-slate-900 transition-colors">{step.body}</p>
                     
-                    <div className="mt-8 pt-8 border-t border-slate-200 flex justify-center">
+                    <div className="mt-6 pt-6 border-t border-slate-200 flex justify-center">
                       <div className="flex gap-1.5">
                         {[0, 1, 2].map((dot) => (
                           <div key={dot} className={`w-1 h-1 rounded-full ${dot === i ? 'bg-accent-3' : 'bg-slate-300'}`} />

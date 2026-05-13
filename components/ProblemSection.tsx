@@ -13,7 +13,6 @@ const pains = [
     stat: "After hours",
     headline: "Missed calls = missed revenue",
     body: "A lead that calls at 8pm and gets voicemail calls your competitor at 8:01pm. Your business loses money while you sleep.",
-    status: "CRITICAL_LOSS",
     color: "bg-red-50 text-red-600 border-red-100",
   },
   {
@@ -28,7 +27,6 @@ const pains = [
     stat: "Every day",
     headline: "The same questions, over and over",
     body: "\"What are your hours?\" \"Do you service my area?\" \"How much does it cost?\" Your time is worth more than answering these on repeat.",
-    status: "RECURRING_DRAIN",
     color: "bg-amber-50 text-amber-600 border-amber-100",
   },
   {
@@ -41,7 +39,6 @@ const pains = [
     stat: "Hours per week",
     headline: "Admin that never ends",
     body: "Inquiry management, intake forms, follow-up emails, the paperwork that comes with running a small business quietly eats your week.",
-    status: "EFFICIENCY_GAP",
     color: "bg-slate-100 text-slate-600 border-slate-200",
   },
 ];
@@ -69,17 +66,14 @@ export default function ProblemSection() {
           </div>
         </AnimatedSection>
  
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 xl:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
           {pains.map((pain, i) => (
             <AnimatedSection key={pain.headline} delay={i * 0.1} variant="scale-in">
               <motion.div 
-                className="bg-white border border-slate-200 p-8 md:p-12 xl:p-14 h-full flex flex-col group overflow-hidden cursor-default shadow-xl relative rounded-3xl md:rounded-[3rem] hover:border-accent-3/50 transition-all duration-500"
+                className="bg-white border border-slate-200 p-7 md:p-10 xl:p-12 h-full flex flex-col group overflow-hidden cursor-default shadow-xl relative rounded-3xl md:rounded-[3rem] hover:border-accent-3/50 transition-all duration-500"
               >
                 {/* Industrial Corner Accents */}
                 <div className="absolute top-0 right-0 w-24 h-24 bg-accent-3/[0.03] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute top-6 right-6 text-[9px] font-black text-slate-900/10 group-hover:text-accent-3/40 transition-colors tracking-[0.3em] uppercase">
-                  LOSS_ID: 0{i + 1}
-                </div>
 
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center gap-6 mb-10">
@@ -90,10 +84,7 @@ export default function ProblemSection() {
                       <span className="scale-125">{pain.icon}</span>
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-black text-accent-3 uppercase tracking-[0.3em]">{pain.status}</span>
-                      </div>
-                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">{pain.stat}</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">{pain.stat}</span>
                     </div>
                   </div>
                   
