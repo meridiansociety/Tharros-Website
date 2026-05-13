@@ -37,29 +37,29 @@ export default function HowItWorksSection() {
 
         <div className="relative">
           {/* Connecting line - desktop horizontal */}
-          <div className="hidden md:block absolute top-[60px] left-[15%] right-[15%] h-[2px]">
+          <div className="hidden md:block absolute top-[40px] left-[15%] right-[15%] h-[2px]">
             <div className="w-full h-full bg-slate-100 rounded-full" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 xl:gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 xl:gap-12">
             {steps.map((step, i) => (
               <AnimatedSection key={step.number}>
                 <div className="flex flex-col items-center text-center relative group">
                   {/* Step circle */}
-                  <div className="relative mb-10">
-                    <div className="w-[120px] h-[120px] xl:w-[150px] xl:h-[150px] rounded-full bg-white border border-slate-100 flex items-center justify-center relative z-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group-hover:border-accent-3 group-hover:shadow-xl group-hover:shadow-accent-3/5 transition-all duration-500">
-                      <span className="text-accent-3 font-bold text-3xl md:text-4xl xl:text-5xl">
+                  <div className="relative mb-6">
+                    <div className="w-[80px] h-[80px] xl:w-[100px] xl:h-[100px] rounded-full bg-white border border-slate-100 flex items-center justify-center relative z-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group-hover:border-accent-3 group-hover:shadow-xl group-hover:shadow-accent-3/5 transition-all duration-500">
+                      <span className="text-accent-3 font-bold text-2xl md:text-3xl xl:text-4xl">
                         {step.number}
                       </span>
                     </div>
                   </div>
 
                   {/* Content card */}
-                  <div className="clean-card p-10 md:p-12 xl:p-16 w-full flex-1 hover:shadow-xl transition-all duration-500">
-                    <h3 className="text-2xl md:text-3xl xl:text-4xl font-bold text-text mb-5 leading-tight">
+                  <div className="clean-card p-6 md:p-8 xl:p-10 w-full flex-1 hover:shadow-xl transition-all duration-500">
+                    <h3 className="text-lg md:text-xl xl:text-2xl font-bold text-text mb-4 leading-tight">
                       {step.headline}
                     </h3>
-                    <p className="text-subdued text-base md:text-lg xl:text-xl leading-relaxed">{step.body}</p>
+                    <p className="text-subdued text-sm md:text-base xl:text-lg leading-relaxed">{step.body}</p>
                   </div>
                 </div>
               </AnimatedSection>

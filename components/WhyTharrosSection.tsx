@@ -46,15 +46,15 @@ export default function WhyTharrosSection() {
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 xl:gap-14 mb-16 md:mb-24 xl:mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
           {pillars.map((pillar, i) => (
             <AnimatedSection key={pillar.headline}>
-              <div className="clean-card p-8 md:p-12 xl:p-16 h-full flex flex-col gap-6 group hover:shadow-xl hover:border-accent-3/20 transition-all duration-500">
-                <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-accent-3/10 group-hover:text-accent-3 transition-colors duration-500">
-                  <span aria-hidden="true" className="scale-125">{pillar.icon}</span>
+              <div className="clean-card p-5 md:p-6 xl:p-8 h-full flex flex-col gap-5 group hover:shadow-xl hover:border-accent-3/20 transition-all duration-500">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-accent-3/10 group-hover:text-accent-3 transition-colors duration-500">
+                  <span aria-hidden="true" className="scale-90 md:scale-100">{pillar.icon}</span>
                 </div>
-                <h3 className="text-xl md:text-2xl xl:text-3xl font-bold text-text leading-tight">{pillar.headline}</h3>
-                <p className="text-subdued text-base xl:text-lg leading-relaxed">{pillar.body}</p>
+                <h3 className="text-base md:text-lg xl:text-xl font-bold text-text leading-tight">{pillar.headline}</h3>
+                <p className="text-subdued text-[13px] md:text-sm xl:text-base leading-relaxed">{pillar.body}</p>
               </div>
             </AnimatedSection>
           ))}
@@ -62,28 +62,28 @@ export default function WhyTharrosSection() {
 
         {/* Founder quote */}
         <AnimatedSection variant="scale-in">
-          <div className="max-w-4xl xl:max-w-5xl mx-auto">
-            <div className="bg-slate-900 rounded-[1.5rem] md:rounded-[2.5rem] p-8 md:p-16 xl:p-24 text-center relative overflow-hidden shadow-2xl">
+          <div className="max-w-2xl md:max-w-3xl xl:max-w-4xl mx-auto">
+            <div className="bg-slate-900 rounded-[1.2rem] md:rounded-[2rem] p-6 md:p-10 xl:p-16 text-center relative overflow-hidden shadow-xl">
               {/* Subtle background pattern */}
-              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "32px 32px" }} />
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "24px 24px" }} />
               
-              <p className="text-accent-3 text-6xl mb-6 leading-none select-none opacity-50" aria-hidden="true">
+              <p className="text-accent-3 text-4xl mb-4 leading-none select-none opacity-50" aria-hidden="true">
                 &ldquo;
               </p>
-              <p className="text-white text-xl md:text-3xl xl:text-4xl leading-[1.4] mb-12 font-medium max-w-3xl xl:max-w-4xl mx-auto relative z-10 tracking-tight">
+              <p className="text-white text-base md:text-xl xl:text-2xl leading-[1.5] mb-8 font-medium max-w-2xl mx-auto relative z-10 tracking-tight">
                 Ottawa small businesses don&apos;t need a corporate AI strategy. They
                 need something that works on Tuesday morning when the phone
                 won&apos;t stop ringing.
               </p>
-              <div className="flex flex-col items-center justify-center gap-4 relative z-10">
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center text-slate-900 font-bold text-lg shadow-lg">
+              <div className="flex flex-col items-center justify-center gap-3 relative z-10">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-900 font-bold text-sm shadow-lg">
                   M
                 </div>
                 <div>
-                  <p className="text-white text-base font-bold tracking-tight">
+                  <p className="text-white text-sm font-bold tracking-tight">
                     Magnus Abdelnour
                   </p>
-                  <p className="text-white/40 text-xs font-bold uppercase tracking-widest mt-1">Founder, Tharros</p>
+                  <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mt-0.5">Founder, Tharros</p>
                 </div>
               </div>
             </div>

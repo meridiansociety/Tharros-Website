@@ -46,17 +46,14 @@ export default function AnimatedSection({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.05 }}
       variants={shouldReduceMotion ? variants.fade : variants[variant]}
       transition={{
-        duration: 0.6,
+        duration: 0.7,
         delay: delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: [0.16, 1, 0.3, 1], // More responsive, fluid easing
       }}
-      style={{
-        willChange: "transform, opacity",
-        transform: "translateZ(0)",
-      }}
+      style={{ willChange: "transform, opacity" }}
       className={className}
     >
       {children}

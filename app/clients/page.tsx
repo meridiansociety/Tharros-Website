@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 export default function ClientsPage() {
   return (
     <>
-      <NavBar />
       <main className="pt-24 md:pt-28">
         <ClientsSection />
         <FooterSection />

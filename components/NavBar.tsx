@@ -9,9 +9,9 @@ import Magnetic from "./Magnetic";
 
 const navLinks = [
   { label: "Solutions", href: "/#solutions" },
-  { label: "Deployments", href: "/clients" },
   { label: "Demo", href: "/#demo" },
   { label: "Pricing", href: "/#pricing" },
+  { label: "Clients", href: "/clients" },
 ];
 
 export default function NavBar() {
@@ -36,18 +36,45 @@ export default function NavBar() {
       const element = document.getElementById(id);
       if (element) {
         const offset = 100; // Account for sticky nav
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
         const offsetPosition = elementPosition - offset;
 
         window.scrollTo({
           top: offsetPosition,
           behavior: "smooth"
         });
+        
+        // Update URL hash without jumping
+        window.history.pushState(null, "", href);
       }
     }
   };
+
+  // Robust Cross-Page Anchor Handling
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash && isHomePage) {
+        const id = hash.replace("#", "");
+        // Short delay to ensure PageTransition and dynamic sections are laid out
+        setTimeout(() => {
+          const element = document.getElementById(id);
+          if (element) {
+            const offset = 100;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+              top: elementPosition - offset,
+              behavior: "smooth"
+            });
+          }
+        }, 100);
+      }
+    };
+
+    if (isHomePage) {
+      handleHashScroll();
+    }
+  }, [isHomePage, pathname]);
 
   useEffect(() => {
     let ticking = false;
@@ -167,7 +194,6 @@ export default function NavBar() {
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             onClick={() => setMobileOpen(false)}
-            style={{ willChange: "opacity, backdrop-filter", transform: "translateZ(0)" }}
             className="fixed inset-0 z-[55] bg-white/80 flex flex-col items-center justify-center"
           >
             <div className="flex flex-col items-center justify-center gap-10 w-full px-6">

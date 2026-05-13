@@ -7,31 +7,20 @@ import WhyTharrosSection from "@/components/WhyTharrosSection";
 import PricingSection from "@/components/PricingSection";
 import FooterSection from "@/components/FooterSection";
 import ChatDemoSectionWrapper from "@/components/ChatDemoSectionWrapper";
+import ModelTiersSection from "@/components/ModelTiersSection";
 
 export default function Home() {
   return (
     <>
-      <NavBar />
-      <main className="gpu-accelerated">
+      <main>
         <HeroSection />
-        <div className="content-visibility-auto">
-          <ProblemSection />
-        </div>
-        <div className="content-visibility-auto">
-          <ChatDemoSectionWrapper />
-        </div>
-        <div className="content-visibility-auto">
-          <WhatWeBuildsSection />
-        </div>
-        <div className="content-visibility-auto">
-          <HowItWorksSection />
-        </div>
-        <div className="content-visibility-auto">
-          <WhyTharrosSection />
-        </div>
-        <div className="content-visibility-auto">
-          <PricingSection />
-        </div>
+        <ProblemSection />
+        <ChatDemoSectionWrapper />
+        <ModelTiersSection />
+        <WhatWeBuildsSection />
+        <HowItWorksSection />
+        <WhyTharrosSection />
+        <PricingSection />
         <FooterSection />
       </main>
     </>

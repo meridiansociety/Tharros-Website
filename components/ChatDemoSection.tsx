@@ -1,20 +1,32 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Client, Key, Agent, type Task } from "@relevanceai/sdk";
 import AnimatedSection from "./AnimatedSection";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import MobileChatConsole from "./MobileChatConsole";
 
-// Relevance AI Configuration (using environment variables)
+// Relevance AI Configuration
 const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION || "";
 const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT || "";
 const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID || "";
 
-// Performance: Pre-calculate time formatter
-const timeFormatter = new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' });
-const formatTime = () => timeFormatter.format(new Date());
+// Performance Constants & Static Data
+const MAX_PROMPTS = 5;
+const TIME_FORMATTER = new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' });
+const formatTime = () => TIME_FORMATTER.format(new Date());
+
+const NEURAL_LOGIC_FEATURES = [
+  { title: "Neural Logic", desc: "Handles complex multi-step reasoning." },
+  { title: "Brand Integrity", desc: "Perfectly mirrors your professional tone." },
+  { title: "Deep Integration", desc: "Syncs directly with your existing CRM." }
+] as const;
+
+const VERIFICATION_BLOCKS = [
+  { label: "Logic Flow", title: "Adaptive Reasoning", desc: "Dynamically adjusts response depth based on inquiry complexity." },
+  { label: "Identity", title: "Brand Safe", desc: "Hard-coded boundaries ensure absolute professional integrity." },
+] as const;
 
 type LocalMessage = {
   id: string;
@@ -36,8 +48,38 @@ export default function ChatDemoSection() {
   const [recommendedQuestions, setRecommendedQuestions] = useState<string[]>([]);
   const [agentInstance, setAgentInstance] = useState<AgentResource | null>(null);
   const [currentTask, setCurrentTask] = useState<Task<any, any> | null>(null);
+  
   const scrollRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+
+  const [userMessageCount, setUserMessageCount] = useState(0);
+  const countRef = useRef(0); // For stable access in listeners
+  
+  const isLimitReached = userMessageCount >= MAX_PROMPTS;
+
+  // Sync ref with state
+  useEffect(() => {
+    countRef.current = userMessageCount;
+  }, [userMessageCount]);
+
+  // Persistence: Load count on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(`pc-${AGENT_ID}`);
+      if (stored) {
+        const count = parseInt(stored, 10);
+        setUserMessageCount(count);
+        countRef.current = count;
+      }
+    }
+  }, []);
+
+  // Persistence: Save count on change
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(`pc-${AGENT_ID}`, userMessageCount.toString());
+    }
+  }, [userMessageCount]);
 
   // Initialize Relevance AI Client and Agent
   useEffect(() => {
@@ -45,7 +87,8 @@ export default function ChatDemoSection() {
       if (!REGION || !PROJECT || !AGENT_ID) return;
       try {
         const storageKey = `r-${AGENT_ID}`;
-        const stored = JSON.parse(localStorage.getItem(storageKey) ?? "null");
+        const storedJson = localStorage.getItem(storageKey);
+        const stored = storedJson ? JSON.parse(storedJson) : null;
         
         let keyInstance;
         try {
@@ -97,7 +140,6 @@ export default function ChatDemoSection() {
           ]);
         } catch (innerErr) {
           console.error("Inner Relevance init error:", innerErr);
-          // Fallback or retry logic could go here
         }
       } catch (err) {
         console.error("Failed to initialize Relevance AI:", err);
@@ -127,10 +169,13 @@ export default function ChatDemoSection() {
         });
         
         // Extract recommended questions if available in the message
-        if (message.details?.recommended_questions) {
-          setRecommendedQuestions(message.details.recommended_questions);
-        } else if (message.recommended_questions) {
-          setRecommendedQuestions(message.recommended_questions);
+        // Use countRef to avoid re-subscribing on every message
+        if (countRef.current < MAX_PROMPTS) {
+          if (message.details?.recommended_questions) {
+            setRecommendedQuestions(message.details.recommended_questions);
+          } else if (message.recommended_questions) {
+            setRecommendedQuestions(message.recommended_questions);
+          }
         }
         
         setIsTyping(false);
@@ -142,27 +187,28 @@ export default function ChatDemoSection() {
       currentTask.removeEventListener("message", handleMessage);
       currentTask.unsubscribe();
     };
-  }, [currentTask]);
+  }, [currentTask]); // Only re-subscribe if the task instance changes
 
-  const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
         top: scrollRef.current.scrollHeight,
         behavior,
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom(messages.length <= 1 ? "auto" : "smooth");
-  }, [messages, isTyping]);
+  }, [messages, isTyping, scrollToBottom]);
 
-  const handleSend = async (text: string, e?: React.FormEvent) => {
+  const handleSend = useCallback(async (text: string, e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!text.trim() || !agentInstance || isTyping) return;
+    if (!text.trim() || !agentInstance || isTyping || countRef.current >= MAX_PROMPTS) return;
 
     setInputValue("");
     setRecommendedQuestions([]); // Hide while thinking
+    setUserMessageCount(prev => prev + 1);
     
     const userMsgId = Date.now().toString();
     setMessages((prev) => [...prev, {
@@ -175,7 +221,7 @@ export default function ChatDemoSection() {
     setIsTyping(true);
 
     try {
-      const newTask = await agentInstance.sendMessage(text, (currentTask as any));
+      const newTask = await agentInstance.sendMessage(text, currentTask);
       if (newTask !== currentTask) {
         setCurrentTask(newTask);
       }
@@ -186,13 +232,13 @@ export default function ChatDemoSection() {
         id: "error",
         sender: "agent",
         text: "I encountered an error. Please try again.",
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        time: formatTime(),
       }]);
     }
-  };
+  }, [agentInstance, currentTask, isTyping]);
 
   return (
-    <section className="section-padding px-4 md:px-12 xl:px-20 relative overflow-hidden bg-white industrial-grid">
+    <section className="section-padding px-4 md:px-12 xl:px-20 relative overflow-hidden bg-slate-950 industrial-grid">
       {/* Anchor for navigation */}
       <div id="demo" className="absolute top-16 md:top-24 xl:top-32 pointer-events-none" />
       
@@ -205,26 +251,22 @@ export default function ChatDemoSection() {
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
           <AnimatedSection>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 mb-8 mx-auto">
-              <span className="w-1.5 h-1.5 rounded-full bg-text animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-text">Live Deployment</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8 mx-auto">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-3 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">Live Deployment</span>
             </div>
             
-            <h2 className="text-5xl md:text-7xl xl:text-8xl font-bold text-text mb-8 leading-[1] tracking-tighter">
+            <h2 className="text-5xl md:text-7xl xl:text-8xl font-bold text-white mb-8 leading-[1] tracking-tighter">
               An agent that <br />
               <span className="text-slate-400">commands results.</span>
             </h2>
             
-            <p className="text-subdued text-lg md:text-xl xl:text-2xl mb-12 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-slate-400 text-lg md:text-xl xl:text-2xl mb-12 leading-relaxed max-w-2xl mx-auto">
               Don&apos;t just chat. Automate. Our agents are engineered for high-stakes business environments where precision is the only metric that matters.
             </p>
 
             <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-              {[
-                { title: "Neural Logic", desc: "Handles complex multi-step reasoning." },
-                { title: "Brand Integrity", desc: "Perfectly mirrors your professional tone." },
-                { title: "Deep Integration", desc: "Syncs directly with your existing CRM." }
-              ].map((item, i) => (
+              {NEURAL_LOGIC_FEATURES.map((item, i) => (
                 <motion.div 
                   key={item.title}
                   initial={{ opacity: 0, y: 10 }}
@@ -240,183 +282,172 @@ export default function ChatDemoSection() {
           </AnimatedSection>
         </div>
 
-        {/* The Focused Agent Console & Demo Header */}
-        <div className="w-full max-w-4xl xl:max-w-5xl mx-auto">
+        {/* Re-arranged Split Layout: Header & Console side-by-side */}
+        <div className="w-full">
           <AnimatedSection delay={0.2} variant="scale-in">
-            {/* Demo Header back above the chat box */}
-            <div className="text-center mb-10">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-3">Industrial Logic Demo</p>
-              <h3 className="text-3xl md:text-5xl font-bold text-text tracking-tight mb-4">Interact with our <span className="text-accent-3">Light Model</span></h3>
-              <p className="text-sm text-subdued max-w-md mx-auto">Experience the responsiveness and brand alignment of a Tharros-engineered conversational interface.</p>
-            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-20 items-start">
+              
+              {/* Left Column: Briefing & Strategy */}
+              <div className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-32">
+                <div className="mb-8">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                    <span className="w-2 h-[1px] bg-slate-600" />
+                    Industrial Logic Demo
+                  </p>
+                  <h3 className="text-4xl md:text-5xl xl:text-6xl font-bold text-white tracking-tighter mb-6 leading-[1.1]">
+                    Interact with <br />
+                    our <span className="text-accent-3">Light Model.</span>
+                  </h3>
+                  <p className="text-base text-slate-400 leading-relaxed mb-10 max-w-sm">
+                    Experience the responsiveness and brand alignment of a Tharros-engineered Customer Q&A Agent.
+                  </p>
+                </div>
 
-            <div className="relative w-full">
-              {/* Chat Container */}
-              {isMobile ? (
-                <MobileChatConsole
-                  messages={messages}
-                  inputValue={inputValue}
-                  setInputValue={setInputValue}
-                  handleSend={handleSend}
-                  isTyping={isTyping}
-                  recommendedQuestions={recommendedQuestions}
-                  title="Tharros Agent"
-                  subtitle="Light Model Operational"
-                  modelType="Industrial Logic Demo"
-                />
-              ) : (
-                <div className="relative flex flex-col h-[500px] md:h-[550px] xl:h-[650px] w-full bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] overflow-hidden border border-slate-100/50" style={{ willChange: "transform" }}>
-                  
-                  {/* Chat Header - Glassmorphism Bento Style */}
-                  <div className="px-5 md:px-10 py-4 md:py-5 border-b border-slate-100/50 bg-white/70 backdrop-blur-xl sticky top-0 z-10">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 md:gap-4">
-                        <div className="relative">
-                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-lg shadow-slate-200/50">
-                            <svg width="20" height="20" className="md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                            </svg>
-                          </div>
-                          <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-white flex items-center justify-center border-2 border-white">
-                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                          </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <h3 className="text-text font-bold text-[13px] md:text-base tracking-tight leading-none mb-1">Tharros Agent &mdash; Light Model</h3>
-                          <div className="flex items-center gap-2">
-                            <span className="text-green-600 text-[8px] md:text-[10px] font-extrabold uppercase tracking-widest flex items-center gap-1">
-                              <span className="w-1 h-1 rounded-full bg-green-600 animate-ping" />
-                              Operational
-                            </span>
-                            <span className="w-px h-2.5 bg-slate-200 hidden md:block" />
-                            <span className="text-slate-400 text-[8px] md:text-[10px] font-bold uppercase tracking-widest hidden md:block">Latency: 24ms</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
-                        <div className="hidden sm:flex flex-col items-end px-3 py-1 bg-slate-50 rounded-lg border border-slate-100">
-                          <span className="text-[7px] font-bold text-slate-400 uppercase tracking-widest">Model_V</span>
-                          <span className="text-[9px] font-bold text-text uppercase">1.2.4b</span>
-                        </div>
-                        <button className="w-9 h-9 md:w-10 md:h-10 rounded-full hover:bg-slate-50 flex items-center justify-center text-slate-300 transition-colors active:scale-90">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" />
-                          </svg>
-                        </button>
-                      </div>
+                <div className="space-y-8 hidden lg:block">
+                  {VERIFICATION_BLOCKS.map((item) => (
+                    <div key={item.title} className="flex flex-col gap-1.5 p-4 rounded-2xl bg-slate-900/50 border border-slate-800 hover:bg-slate-900 transition-colors duration-300">
+                      <span className="text-[8px] font-black uppercase tracking-widest text-slate-400">{item.label}</span>
+                      <h4 className="text-xs font-bold text-white uppercase tracking-tight">{item.title}</h4>
+                      <p className="text-[11px] text-slate-300 leading-normal">{item.desc}</p>
                     </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Chat Console */}
+              <div className="lg:col-span-7 xl:col-span-8">
+                <div className="relative w-full">
+                  {/* Industrial Disclaimer */}
+                  <div className="mb-4 px-6">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em] flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full bg-slate-500" />
+                      Sandbox instance restricted to {MAX_PROMPTS} baseline inferences.
+                    </p>
                   </div>
 
-                  {/* Messages Area */}
-                  <div 
-                    ref={scrollRef}
-                    className="flex-1 overflow-y-auto p-5 md:p-10 flex flex-col gap-5 md:gap-6 bg-slate-50/10 scroll-smooth relative"
-                  >
-                    {/* Subtle Grainy Overlay */}
-                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]" />
-                    <AnimatePresence initial={false}>
-                      {messages.map((msg) => (
-                        <motion.div
-                          key={msg.id}
-                          initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ duration: 0.4, ease: "easeOut" }}
-                          className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
-                        >
-                          <div 
-                            className={`max-w-[90%] md:max-w-[75%] text-[13px] md:text-base leading-relaxed px-5 py-3.5 md:px-6 md:py-4 rounded-[1.2rem] md:rounded-[2rem] shadow-sm border ${
-                              msg.sender === "user" 
-                              ? "bg-slate-900 text-white border-slate-800 rounded-tr-none shadow-slate-200/5" 
-                              : "bg-white text-text border-slate-100/80 rounded-tl-none shadow-slate-100/50"
-                            }`}
-                          >
-                            {msg.text}
-                          </div>
-                          <span className="text-[9px] text-slate-300 font-bold mt-2 px-1 uppercase tracking-widest">{msg.time}</span>
-                        </motion.div>
-                      ))}
+                  {isMobile ? (
+                    <MobileChatConsole
+                      messages={messages}
+                      inputValue={inputValue}
+                      setInputValue={setInputValue}
+                      handleSend={handleSend}
+                      isTyping={isTyping}
+                      recommendedQuestions={recommendedQuestions}
+                      title="Tharros Agent"
+                      subtitle="Light Model Operational"
+                      modelType="Industrial Logic Demo"
+                      userMessageCount={userMessageCount}
+                      maxPrompts={MAX_PROMPTS}
+                    />
+                  ) : (
+                    <div className="relative flex flex-col h-[450px] xl:h-[550px] w-full bg-slate-900/40 rounded-[2.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden border border-white/5" style={{ willChange: "transform" }}>
                       
-                      {isTyping && (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="flex flex-col items-start"
-                        >
-                          <div className="bg-white border border-slate-100/80 px-5 py-3.5 rounded-[1.2rem] rounded-tl-none shadow-sm flex items-center gap-3">
-                            <div className="flex gap-1.5">
-                              {[0, 1, 2].map((_, index) => (
-                                <motion.div 
-                                  key={index}
-                                  animate={{ 
-                                    y: [0, -6, 0],
-                                    opacity: [0.4, 1, 0.4]
-                                  }} 
-                                  transition={{ 
-                                    repeat: Infinity, 
-                                    duration: 0.8, 
-                                    delay: index * 0.15 
-                                  }} 
-                                  className="w-1.5 h-1.5 bg-accent-3 rounded-full" 
-                                />
-                              ))}
+                      {/* Chat Header - Glassmorphism Bento Style */}
+                      <div className="px-5 md:px-10 py-5 border-b border-white/5 bg-slate-900/80 backdrop-blur-xl sticky top-0 z-10">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <div className="relative">
+                              <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-slate-950 shadow-lg shadow-white/5">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                </svg>
+                              </div>
+                              <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-900">
+                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                              </div>
+                            </div>
+                            <div className="flex flex-col">
+                              <h3 className="text-white font-bold text-base tracking-tight leading-none mb-1.5">Tharros Agent &mdash; Light Model</h3>
+                              <div className="flex items-center gap-2">
+                                <span className="text-green-500 text-[10px] font-extrabold uppercase tracking-widest flex items-center gap-1">
+                                  <span className="w-1 h-1 rounded-full bg-green-500 animate-ping" />
+                                  Operational
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                          
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
+                              <span className={`text-[10px] font-black tabular-nums ${isLimitReached ? 'text-red-400' : 'text-slate-400'}`}>
+                                {userMessageCount}/{MAX_PROMPTS}
+                              </span>
+                              <span className="text-[9px] font-bold text-slate-100 uppercase tracking-tight">Prompts</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-                  {/* Footer / Input Area */}
-                  <div className="p-4 md:p-8 bg-white border-t border-slate-100/50">
-                    
-                    {/* Suggestions - Swipeable on mobile */}
-                    <AnimatePresence>
-                      {recommendedQuestions.length > 0 && !isTyping && (
-                        <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="flex overflow-x-auto no-scrollbar gap-2 mb-4 md:mb-6 -mx-1 px-1 pb-1"
-                        >
-                          {recommendedQuestions.map((q) => (
-                            <button
-                              key={q}
-                              onClick={() => handleSend(q)}
-                              className="px-4 py-2 bg-slate-50 border border-slate-200/60 rounded-full text-[10px] md:text-[11px] font-bold text-slate-500 hover:bg-accent-3 hover:text-white hover:border-accent-3 transition-all whitespace-nowrap active:scale-95"
-                            >
-                              {q}
-                            </button>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    <form 
-                      onSubmit={(e) => handleSend(inputValue, e)}
-                      className="flex items-center gap-2 md:gap-4 bg-slate-50 p-1.5 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 focus-within:border-accent-3/30 transition-all"
-                    >
-                      <input
-                        type="text"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        placeholder="Message..."
-                        disabled={!agentInstance || isTyping}
-                        className="flex-1 bg-transparent px-4 py-2.5 text-sm text-text placeholder:text-slate-400 focus:outline-none disabled:opacity-50"
-                      />
-                      <button 
-                        type="submit"
-                        aria-label="Send message"
-                        disabled={!inputValue.trim() || !agentInstance || isTyping}
-                        className="h-10 w-10 md:h-12 md:w-12 flex items-center justify-center rounded-[1rem] md:rounded-[1.2rem] bg-slate-900 text-white shadow-lg hover:bg-slate-800 transition-all disabled:opacity-10 active:scale-90 shrink-0"
+                      {/* Messages Area */}
+                      <div 
+                        ref={scrollRef}
+                        className="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col gap-6 bg-black/20 scroll-smooth relative"
                       >
-                        <svg width="18" height="18" className="md:w-5 md:h-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" />
-                        </svg>
-                      </button>
-                    </form>
-                  </div>
+                        {/* Subtle Grainy Overlay */}
+                        <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
+                        <AnimatePresence initial={false}>
+                          {messages.map((msg) => (
+                            <MessageItem key={msg.id} msg={msg} />
+                          ))}
+                          
+                          {isTyping && (
+                            <TypingIndicator />
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Footer / Input Area */}
+                      <div className="p-6 md:p-8 bg-slate-900/60 border-t border-white/5">
+                        
+                        {/* Suggestions */}
+                        <AnimatePresence>
+                          {recommendedQuestions.length > 0 && !isTyping && (
+                            <motion.div 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="flex overflow-x-auto no-scrollbar gap-2 mb-6 -mx-1 px-1 pb-1"
+                            >
+                              {recommendedQuestions.map((q) => (
+                                <button
+                                  key={q}
+                                  onClick={() => handleSend(q)}
+                                  className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[11px] font-bold text-slate-300 hover:bg-accent-3 hover:text-white hover:border-accent-3 transition-all whitespace-nowrap active:scale-95"
+                                >
+                                  {q}
+                                </button>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        <form 
+                          onSubmit={(e) => handleSend(inputValue, e)}
+                          className="flex items-center gap-4 bg-white/5 p-2 rounded-[2rem] border border-white/10 focus-within:border-accent-3/30 transition-all"
+                        >
+                          <input
+                            type="text"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            placeholder={isLimitReached ? "Demo limit reached." : "Message..."}
+                            disabled={!agentInstance || isTyping || isLimitReached}
+                            className="flex-1 bg-transparent px-4 py-3 text-base text-white placeholder:text-slate-500 focus:outline-none disabled:opacity-50"
+                          />
+                          <button 
+                            type="submit"
+                            aria-label="Send message"
+                            disabled={!inputValue.trim() || !agentInstance || isTyping || isLimitReached}
+                            className="h-12 w-12 flex items-center justify-center rounded-[1.2rem] bg-white text-slate-950 shadow-lg hover:bg-slate-100 transition-all disabled:opacity-10 active:scale-90 shrink-0"
+                          >
+                            <svg width="20" height="20" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" />
+                            </svg>
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </AnimatedSection>
         </div>
@@ -424,4 +455,55 @@ export default function ChatDemoSection() {
     </section>
   );
 }
+
+// Sub-components for better performance and readability
+const MessageItem = memo(({ msg }: { msg: LocalMessage }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 15, scale: 0.98 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    transition={{ duration: 0.4, ease: "easeOut" }}
+    className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
+  >
+    <div 
+      className={`max-w-[85%] md:max-w-[75%] text-base leading-relaxed px-6 py-4 rounded-[1.5rem] md:rounded-[2rem] shadow-sm border ${
+        msg.sender === "user" 
+        ? "bg-white text-slate-950 border-white/10 rounded-tr-none shadow-white/5" 
+        : "bg-slate-800 text-white border-white/5 rounded-tl-none shadow-black/50"
+      }`}
+    >
+      {msg.text}
+    </div>
+    <span className="text-[9px] text-slate-400 font-bold mt-2 px-1 uppercase tracking-widest">{msg.time}</span>
+  </motion.div>
+));
+MessageItem.displayName = "MessageItem";
+
+const TypingIndicator = memo(() => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    className="flex flex-col items-start"
+  >
+    <div className="bg-slate-800 border border-white/5 px-6 py-4 rounded-[1.5rem] rounded-tl-none shadow-sm flex items-center gap-3">
+      <div className="flex gap-1.5">
+        {[0, 1, 2].map((_, index) => (
+          <motion.div 
+            key={index}
+            animate={{ 
+              y: [0, -6, 0],
+              opacity: [0.4, 1, 0.4]
+            }} 
+            transition={{ 
+              repeat: Infinity, 
+              duration: 0.8, 
+              delay: index * 0.15 
+            }} 
+            className="w-1.5 h-1.5 bg-accent-3 rounded-full" 
+          />
+        ))}
+      </div>
+    </div>
+  </motion.div>
+));
+TypingIndicator.displayName = "TypingIndicator";
 
