@@ -101,36 +101,7 @@ export default function ClientsSection() {
           </AnimatedSection>
         </div>
 
-        {/* CTA Bottom */}
-        <AnimatedSection delay={0.3}>
-          <div className="mt-16 md:mt-24 text-center bg-slate-900 rounded-[2rem] p-10 md:p-16 relative overflow-hidden shadow-xl">
-            <div className="industrial-grid absolute inset-0 opacity-[0.08] invert pointer-events-none" />
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-accent-3/10 to-transparent pointer-events-none" />
-            
-            <div className="relative z-10">
-              <div className="inline-block p-1 bg-white/5 rounded-full border border-white/10 mb-8">
-                <div className="px-5 py-2 rounded-full bg-white/10 backdrop-blur-md flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-[10px] font-bold text-white tracking-widest uppercase">3 Slots Open in Ottawa - Q3 2026</span>
-                </div>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 tracking-tight">Ready to recover your time?</h2>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
-                <motion.a 
-                  href="/intake" 
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="primary-button bg-white text-slate-900 hover:bg-slate-50 px-8 py-4 text-base font-bold rounded-xl transition-all"
-                >
-                  Secure Your Agent
-                </motion.a>
-                <a href="/#pricing" className="px-8 py-4 font-bold text-slate-400 hover:text-white transition-all text-sm uppercase tracking-widest">
-                  View Plans
-                </a>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
+
       </div>
     </section>
   );
