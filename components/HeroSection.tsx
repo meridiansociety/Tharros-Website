@@ -73,8 +73,8 @@ export default function HeroSection() {
             variants={itemVariants}
             className="text-base md:text-2xl xl:text-3xl text-slate-200 max-w-2xl xl:max-w-5xl mx-auto mb-8 md:mb-16 leading-relaxed font-medium opacity-80 px-2 sm:px-0"
           >
-            High-performance AI Agents for trades and professional services. <br className="hidden lg:block" />
-            We build the digital workforce that recovers your time. <span className="text-white font-black tracking-widest uppercase text-[10px] md:text-sm inline-block ml-2 px-3 py-1 bg-white/5 rounded-lg border border-white/10">Keep it Canadian</span>
+            High-performance AI Agents for trades and small businesses. <br className="hidden lg:block" />
+            We build the digital workforce that recovers your time.
           </motion.p>
 
           <motion.div 
