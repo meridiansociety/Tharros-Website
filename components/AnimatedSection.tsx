@@ -53,6 +53,10 @@ export default function AnimatedSection({
         delay: delay,
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
+      style={{
+        willChange: "transform, opacity",
+        transform: "translateZ(0)",
+      }}
       className={className}
     >
       {children}

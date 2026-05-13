@@ -9,8 +9,8 @@ import Magnetic from "./Magnetic";
 
 const navLinks = [
   { label: "Solutions", href: "/#solutions" },
-  { label: "Clients", href: "/clients" },
-  { label: "Try Agent", href: "/#demo" },
+  { label: "Deployments", href: "/clients" },
+  { label: "Demo", href: "/#demo" },
   { label: "Pricing", href: "/#pricing" },
 ];
 
@@ -21,23 +21,31 @@ export default function NavBar() {
   const isIntakePage = pathname === "/intake";
   const isHomePage = pathname === "/";
 
-  const handleScrollToTop = (e: React.MouseEvent) => {
-    if (isHomePage || isIntakePage) {
-      // If we are on home or intake, we just want to scroll to top if the link is meant for that
-      // But for the logo, it always goes to /, so if we are on /, just scroll.
-      // If we are on /intake and click logo, it should actually go to / (default behavior).
-      // If we are on / and click logo, scroll to top.
-      if (isHomePage) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-  };
-
-  const handleIntakeScroll = (e: React.MouseEvent) => {
-    if (isIntakePage) {
+  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+    // Handle logo/scroll to top
+    if (href === "/" && isHomePage) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    // Handle hash links on the home page
+    if (href.startsWith("/#") && isHomePage) {
+      e.preventDefault();
+      const id = href.replace("/#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        const offset = 100; // Account for sticky nav
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
     }
   };
 
@@ -83,7 +91,7 @@ export default function NavBar() {
         <Magnetic strength={0.15}>
           <a
             href="/"
-            onClick={handleScrollToTop}
+            onClick={(e) => handleLinkClick(e, "/")}
             className="relative z-10 block"
             aria-label="Tharros Home"
           >
@@ -104,6 +112,7 @@ export default function NavBar() {
             <motion.a
               key={link.href}
               href={link.href}
+              onClick={(e) => handleLinkClick(e, link.href)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-6 py-2.5 text-base font-semibold text-subdued hover:text-text rounded-full hover:bg-surface transition-colors duration-200"
@@ -116,11 +125,11 @@ export default function NavBar() {
         <Magnetic strength={0.2}>
           <a
             href="/intake"
-            onClick={handleIntakeScroll}
+            onClick={(e) => handleLinkClick(e, "/intake")}
             aria-label="Start your AI consultation"
             className="hidden md:inline-block primary-button px-5 py-2 text-sm"
           >
-            Consultation
+            Get Started
           </a>
         </Magnetic>
 
@@ -158,6 +167,7 @@ export default function NavBar() {
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             onClick={() => setMobileOpen(false)}
+            style={{ willChange: "opacity, backdrop-filter", transform: "translateZ(0)" }}
             className="fixed inset-0 z-[55] bg-white/80 flex flex-col items-center justify-center"
           >
             <div className="flex flex-col items-center justify-center gap-10 w-full px-6">
@@ -165,7 +175,10 @@ export default function NavBar() {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => {
+                    handleLinkClick(e, link.href);
+                    setMobileOpen(false);
+                  }}
                   initial={{ opacity: 0, y: 30, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -186,12 +199,12 @@ export default function NavBar() {
                   href="/intake"
                   aria-label="Start your AI intake journey"
                   onClick={(e) => {
-                    handleIntakeScroll(e);
+                    handleLinkClick(e, "/intake");
                     setMobileOpen(false);
                   }}
                   className="primary-button flex items-center justify-center px-8 py-4 text-lg shadow-2xl shadow-slate-900/10"
                 >
-                  Consultation
+                  Get Started
                 </a>
                 <div className="mt-6 text-center">
                   <a 

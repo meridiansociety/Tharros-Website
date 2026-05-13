@@ -12,14 +12,26 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <main>
+      <main className="gpu-accelerated">
         <HeroSection />
-        <ProblemSection />
-        <ChatDemoSectionWrapper />
-        <WhatWeBuildsSection />
-        <HowItWorksSection />
-        <WhyTharrosSection />
-        <PricingSection />
+        <div className="content-visibility-auto">
+          <ProblemSection />
+        </div>
+        <div className="content-visibility-auto">
+          <ChatDemoSectionWrapper />
+        </div>
+        <div className="content-visibility-auto">
+          <WhatWeBuildsSection />
+        </div>
+        <div className="content-visibility-auto">
+          <HowItWorksSection />
+        </div>
+        <div className="content-visibility-auto">
+          <WhyTharrosSection />
+        </div>
+        <div className="content-visibility-auto">
+          <PricingSection />
+        </div>
         <FooterSection />
       </main>
     </>
