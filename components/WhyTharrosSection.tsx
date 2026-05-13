@@ -41,7 +41,7 @@ export default function WhyTharrosSection() {
 
       <div className="max-w-7xl xl:max-w-[90rem] mx-auto relative">
         <AnimatedSection>
-          <div className="flex flex-col items-center mb-24 md:mb-32">
+          <div className="flex flex-col items-center mb-12 md:mb-16">
 
             <h2 className="text-5xl md:text-7xl xl:text-8xl font-bold text-center text-white mb-12 max-w-4xl xl:max-w-6xl mx-auto leading-[1.1] tracking-tighter">
               Built for <br className="hidden md:block" />
@@ -53,10 +53,10 @@ export default function WhyTharrosSection() {
           </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 xl:gap-20 mb-16 md:mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 xl:gap-12 mb-12 md:mb-16">
           {pillars.map((pillar, i) => (
             <AnimatedSection key={pillar.headline} delay={i * 0.1}>
-              <div className="clean-card p-10 md:p-12 xl:p-14 h-full flex flex-col gap-8 group shadow-2xl relative overflow-hidden">
+              <div className="clean-card p-7 md:p-10 xl:p-12 h-full flex flex-col gap-8 group shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-accent-3/[0.03] rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-slate-950 transition-all duration-700">
                   <span aria-hidden="true" className="scale-110 md:scale-125">{pillar.icon}</span>
@@ -73,7 +73,7 @@ export default function WhyTharrosSection() {
         {/* Founder quote */}
         <AnimatedSection variant="scale-in">
           <div className="max-w-xl md:max-w-3xl xl:max-w-4xl mx-auto">
-            <div className="bg-slate-900 border border-slate-800 rounded-[3rem] p-8 md:p-12 xl:p-16 text-center relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
+            <div className="bg-slate-900 border border-slate-800 rounded-[3rem] p-8 md:p-10 xl:p-12 text-center relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
               {/* Subtle background pattern */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:32px_32px]" />
               

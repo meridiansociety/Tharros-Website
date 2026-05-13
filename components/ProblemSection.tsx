@@ -54,7 +54,7 @@ export default function ProblemSection() {
 
       <div className="max-w-7xl xl:max-w-[90rem] mx-auto relative z-10">
         <AnimatedSection>
-          <div className="flex flex-col items-center mb-16 md:mb-24 lg:mb-32">
+          <div className="flex flex-col items-center mb-12 md:mb-16">
 
             <h2 className="text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-bold text-center text-slate-900 mb-8 md:mb-10 max-w-4xl xl:max-w-6xl leading-[1.1] tracking-tighter">
               Ottawa businesses are <br className="hidden md:block" />

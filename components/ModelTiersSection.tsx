@@ -14,13 +14,13 @@ const TIERS = [
     label: "Growth Tier",
     title: "The Medium Model",
     desc: "A high-performance tier for scaling local brands. Handles complex customer logic and syncs directly with your CRM, acting as a specialized office admin for your team.",
-    color: "text-accent-3"
+    color: "text-slate-600"
   },
   {
     label: "Enterprise Tier",
     title: "The Elite Model",
     desc: "The ultimate automated workforce for high-volume enterprises. A bespoke AI system built to master your specific business logic and run entire workflows with zero-touch precision.",
-    color: "text-white/60"
+    color: "text-accent-3"
   }
 ] as const;
 
@@ -51,7 +51,7 @@ export default function ModelTiersSection() {
           {TIERS.map((tier, i) => (
             <AnimatedSection key={tier.title} delay={i * 0.1} variant="fade-up">
               <div className="flex flex-col h-full group relative">
-                <span className={`text-[11px] font-black uppercase tracking-[0.4em] ${tier.color === 'text-white/60' ? 'text-slate-400' : tier.color} mb-5 block`}>
+                <span className={`text-[11px] font-black uppercase tracking-[0.4em] ${tier.color} mb-5 block`}>
                   {tier.label}
                 </span>
                 <h4 className="text-3xl xl:text-4xl font-bold text-slate-900 tracking-tighter mb-6 leading-none group-hover:text-accent-3 transition-colors duration-500">

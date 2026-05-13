@@ -59,7 +59,7 @@ export default function WhatWeBuildsSection() {
       
       <div className="max-w-7xl xl:max-w-[90rem] mx-auto relative z-10">
         <AnimatedSection>
-          <div className="text-center mb-16 md:mb-32">
+          <div className="text-center mb-12 md:mb-16">
 
             <h2 className="text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-bold text-white mb-8 md:mb-12 max-w-4xl xl:max-w-6xl mx-auto leading-[1.1] tracking-tighter">
               Autonomous <span className="text-slate-500">AI Agents.</span> <br className="hidden sm:block" />
@@ -77,11 +77,8 @@ export default function WhatWeBuildsSection() {
               <motion.div 
                 className="clean-card p-7 md:p-10 xl:p-12 h-full flex flex-col group cursor-default shadow-2xl relative overflow-hidden"
               >
-                {/* Visual Depth Accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-accent-3/[0.05] rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                
                 <div className="flex flex-col gap-8 mb-10 relative z-10">
-                  <div className="w-16 h-16 rounded-[1.25rem] bg-white/[0.08] border border-white/20 flex items-center justify-center text-white group-hover:bg-white group-hover:text-slate-950 group-hover:border-white transition-all duration-500 shrink-0 shadow-2xl">
+                  <div className="w-16 h-16 rounded-[1.25rem] bg-white border border-white flex items-center justify-center text-slate-950 transition-all duration-500 shrink-0 shadow-2xl">
                     <span className="scale-125">{agent.icon}</span>
                   </div>
                   <div className="flex flex-col gap-3">
@@ -92,16 +89,16 @@ export default function WhatWeBuildsSection() {
                   </div>
                 </div>
                 
-                <p className="text-slate-400 text-lg md:text-xl leading-relaxed mb-12 relative z-10 flex-1 group-hover:text-slate-200 transition-colors">
+                <p className="text-slate-200 text-lg md:text-xl leading-relaxed mb-6 relative z-10 flex-1">
                   {agent.description}
                 </p>
  
-                <div className="mt-auto relative z-10 pt-8 border-t border-white/[0.03]">
+                <div className="relative z-10 pt-5 border-t border-white/[0.03]">
                   <div className="flex flex-wrap gap-2.5">
                     {agent.examples.map((ex) => (
                       <span 
                         key={ex} 
-                        className="px-4 py-1.5 bg-white/[0.02] border border-white/5 rounded-xl text-[10px] font-black text-white/30 uppercase tracking-[0.2em] group-hover:border-white/20 group-hover:text-white/60 transition-all"
+                        className="px-4 py-1.5 bg-white/[0.05] border border-white/20 rounded-xl text-[10px] font-black text-white/60 uppercase tracking-[0.2em]"
                       >
                         {ex}
                       </span>
