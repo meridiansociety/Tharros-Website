@@ -17,6 +17,7 @@ const navLinks = [
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
   const pathname = usePathname();
   const isIntakePage = pathname === "/intake";
   const isHomePage = pathname === "/";
@@ -130,7 +131,7 @@ export default function NavBar() {
           </Link>
         </Magnetic>
 
-        <nav className="hidden md:flex items-center gap-2 lg:gap-4">
+        <nav className={`${isMinimized ? 'hidden' : 'hidden md:flex'} items-center gap-2 lg:gap-4`}>
           {navLinks.map((link) => (
             <motion.a
               key={link.href}
@@ -145,24 +146,38 @@ export default function NavBar() {
           ))}
         </nav>
 
-        <Magnetic strength={0.2}>
-          <Link
-            href="/intake"
-            prefetch={false}
-            aria-label="Start your AI consultation"
-            className="hidden md:inline-block primary-button px-5 py-2 text-sm"
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsMinimized(!isMinimized)}
+            className="hidden md:flex w-8 h-8 items-center justify-center rounded-full bg-slate-50 border border-slate-100 text-slate-400 hover:text-text hover:bg-white transition-all active:scale-90 shadow-sm"
+            aria-label={isMinimized ? "Restore Nav" : "Minimize Nav"}
+            title={isMinimized ? "Restore Nav" : "Minimize Nav"}
           >
-            Get Started
-          </Link>
-        </Magnetic>
+            {isMinimized ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            ) : (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3v5H3M16 3v5h5M3 16h5v5M21 16h-5v5"/></svg>
+            )}
+          </button>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden relative z-[60] w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-white border border-slate-100 shadow-sm transition-all active:scale-90"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-menu"
-        >
+          <Magnetic strength={0.2}>
+            <Link
+              href="/intake"
+              prefetch={false}
+              aria-label="Start your AI consultation"
+              className={`${isMinimized ? 'hidden' : 'hidden md:inline-block'} primary-button px-5 py-2 text-sm`}
+            >
+              Get Started
+            </Link>
+          </Magnetic>
+
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className={`${isMinimized ? 'flex' : 'md:hidden flex'} relative z-[60] w-10 h-10 flex-col items-center justify-center gap-1.5 rounded-full bg-white border border-slate-100 shadow-sm transition-all active:scale-90`}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+          >
           <span
             className={`block w-5 h-[1.5px] bg-slate-900 rounded-full transition-all duration-300 origin-center ${
               mobileOpen ? "rotate-45 translate-y-[5px]" : ""
