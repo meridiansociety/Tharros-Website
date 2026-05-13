@@ -103,6 +103,12 @@ export default function IntakeForm() {
                       </div>
 
                       <div className="space-y-2">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Website <span className="text-slate-300 font-normal ml-1">(Optional)</span></label>
+                        <input name="website" type="url" placeholder="https://yourwebsite.com" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm" />
+                        <ValidationError prefix="Website" field="website" errors={state.errors} className="text-red-500 text-[10px] font-bold mt-1" />
+                      </div>
+
+                      <div className="space-y-2">
                         <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Needs</label>
                         <textarea required name="needs" rows={4} placeholder="Tell us about your goals. What specific tasks or inquiries should your AI agent handle?" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm resize-none" />
                         <ValidationError prefix="Needs" field="needs" errors={state.errors} className="text-red-500 text-[10px] font-bold mt-1" />
