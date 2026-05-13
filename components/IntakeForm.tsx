@@ -68,7 +68,7 @@ export default function IntakeForm() {
                     <span className="text-accent-3">Intake.</span>
                   </h1>
                   <p className="text-subdued text-lg leading-relaxed mb-10">
-                    Tell us about your project. We'll review your details and design a custom AI agent tailored to your business goals.
+                    Tell us about your project. A Tharros representative will reach out to you shortly.
                   </p>
                   
                   <div className="space-y-6">
@@ -99,7 +99,7 @@ export default function IntakeForm() {
                           <input required type="text" placeholder="John Doe" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm" />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Work Email</label>
+                          <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 ml-1">Email</label>
                           <input required type="email" placeholder="john@company.com" className="w-full bg-slate-50 border border-slate-100 rounded-xl px-5 py-4 text-sm focus:outline-none focus:border-accent-3/30 focus:bg-white transition-all shadow-sm" />
                         </div>
                       </div>
