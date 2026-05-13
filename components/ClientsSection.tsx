@@ -69,7 +69,7 @@ function ClientsHero() {
                   {/* Connecting Lines */}
                   <path d="M100 80 L180 50 L260 90 L340 60" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" className="text-accent-3/50" />
                   
-                  {/* Main Node Circles */}
+                  {/* Main Focal Circles */}
                   <circle cx="340" cy="60" r="40" stroke="currentColor" strokeWidth="1" className="text-accent-3/30" />
                   <circle cx="340" cy="60" r="25" stroke="currentColor" strokeWidth="0.5" className="text-accent-3/20" />
                   <motion.circle 
@@ -79,7 +79,7 @@ function ClientsHero() {
                     transition={{ duration: 3, repeat: Infinity }}
                   />
                   
-                  {/* Secondary Nodes */}
+                  {/* Secondary Points */}
                   <circle cx="180" cy="50" r="15" stroke="currentColor" strokeWidth="1" className="text-white/20" />
                   <circle cx="180" cy="50" r="2.5" fill="currentColor" className="text-white/60" />
                   
