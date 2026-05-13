@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { useRef, useEffect, memo } from "react";
+import { useRef, useEffect, memo, useState } from "react";
 
 type LocalMessage = {
   id: string;
@@ -87,7 +87,6 @@ const MobileChatConsole = memo(({
             </div>
           </div>
         </div>
-      </div>
 
       {/* Logs Overlay */}
       <AnimatePresence>
