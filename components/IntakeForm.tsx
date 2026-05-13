@@ -134,26 +134,25 @@ export default function IntakeForm() {
             ) : (
               <motion.div 
                 key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="max-w-3xl mx-auto text-center py-20 px-8 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="max-w-2xl mx-auto text-center py-20 px-10 bg-white rounded-[2.5rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] relative"
               >
-                <div className="absolute inset-0 scanline opacity-[0.05] pointer-events-none" />
                 <div className="relative z-10">
-                  <div className="w-24 h-24 rounded-3xl bg-green-500/10 text-green-500 flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_-10px_rgba(34,197,94,0.3)] border border-green-500/20">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="w-20 h-20 rounded-full bg-green-50 text-green-500 flex items-center justify-center mx-auto mb-8 border border-green-100">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </div>
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tighter">Transmission Successful.</h2>
-                  <p className="text-slate-100 text-lg md:text-xl leading-relaxed mb-12 max-w-xl mx-auto">
-                    Your briefing has been received. Our analysts will review your requirements and coordinate a consultation within one business day.
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">Project Received.</h2>
+                  <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-10 max-w-md mx-auto">
+                    Thanks for reaching out. We&apos;ve received your details and will follow up within one business day.
                   </p>
                   <button 
                     onClick={() => window.location.reload()}
-                    className="px-10 py-4 bg-white/5 border border-white/10 text-white rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white/10 transition-all shadow-sm active:scale-95"
+                    className="px-8 py-4 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95"
                   >
-                    New Submission
+                    New Request
                   </button>
                 </div>
               </motion.div>
