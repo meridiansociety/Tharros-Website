@@ -6,19 +6,22 @@ const TIERS = [
   {
     label: "Starter Training",
     title: "The Setup Sprint",
-    desc: "A focused two-week training for owner-operators. We pick one agent, run live setup sessions until it's live, and leave you with a working system and the skills to tune it.",
+    duration: "1 - 3 Days",
+    desc: "A focused 1-3 day training for owner-operators. We pick one agent, run live setup sessions until it's live, and leave you with a working system and the skills to tune it.",
     color: "text-slate-400"
   },
   {
     label: "Team Training",
     title: "The Operator Program",
-    desc: "A multi-week training program for scaling local brands. We train you and your team to set up a CRM-connected agent, document your internal playbook, and run weekly working sessions until it sticks.",
+    duration: "1 Week",
+    desc: "A one-week training program for scaling local brands. We train you and your team to set up a CRM-connected agent and document an internal playbook you can keep using after we leave.",
     color: "text-slate-600"
   },
   {
-    label: "Ongoing Advisory",
+    label: "Training, Build & Retainer",
     title: "The Fractional AI Lead",
-    desc: "A monthly retainer for owners who want a Tharros trainer on speed dial. New agent setups, roadmap reviews, and live troubleshooting as your operation grows.",
+    duration: "1 - 2 Weeks + Retainer",
+    desc: "A 1-2 week intensive of training and live build, followed by an ongoing retainer. New agent setups, roadmap reviews, and live troubleshooting as your operation grows.",
     color: "text-accent-3"
   }
 ] as const;
@@ -53,9 +56,12 @@ export default function ModelTiersSection() {
                 <span className={`text-[11px] 3xl:text-lg font-black uppercase tracking-[0.4em] ${tier.color} mb-5 3xl:mb-10 block`}>
                   {tier.label}
                 </span>
-                <h4 className="text-3xl xl:text-4xl 3xl:text-6xl font-bold text-slate-900 tracking-tighter mb-6 3xl:mb-10 leading-none group-hover:text-accent-3 transition-colors duration-500">
+                <h4 className="text-3xl xl:text-4xl 3xl:text-6xl font-bold text-slate-900 tracking-tighter mb-3 3xl:mb-6 leading-none group-hover:text-accent-3 transition-colors duration-500">
                   {tier.title}
                 </h4>
+                <span className="text-[10px] 3xl:text-base font-black uppercase tracking-[0.3em] text-slate-500 mb-6 3xl:mb-10 block">
+                  {tier.duration}
+                </span>
                 <p className="text-lg xl:text-xl 3xl:text-3xl text-slate-600 leading-relaxed font-medium group-hover:text-slate-900 transition-colors">
                   {tier.desc}
                 </p>
