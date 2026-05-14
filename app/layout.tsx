@@ -218,7 +218,7 @@ export default function RootLayout({
             "itemOffered": {
               "@type": "Service",
               "name": "Setup Sprint",
-              "description": "A two-week, hands-on training and live setup engagement that walks an Ottawa owner through standing up their first AI agent."
+              "description": "A 1-3 day hands-on training and live setup engagement that walks an Ottawa owner through standing up their first AI agent."
             }
           },
           {
@@ -226,7 +226,7 @@ export default function RootLayout({
             "itemOffered": {
               "@type": "Service",
               "name": "Operator Program",
-              "description": "A multi-week team training program to set up CRM-connected AI agents and document an internal setup playbook."
+              "description": "A one-week team training program to set up CRM-connected AI agents and document an internal setup playbook."
             }
           },
           {
@@ -234,7 +234,7 @@ export default function RootLayout({
             "itemOffered": {
               "@type": "Service",
               "name": "Fractional AI Lead",
-              "description": "A monthly retainer for ongoing AI agent setups, tuning, and roadmap reviews."
+              "description": "A 1-2 week intensive of AI agent training and live build, followed by an ongoing retainer for new agent setups, tuning, and roadmap reviews."
             }
           }
         ]
