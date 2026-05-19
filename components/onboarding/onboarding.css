@@ -126,6 +126,20 @@ body {
 }
 .ob-step.is-locked { cursor: not-allowed; }
 .ob-step.is-locked:hover { color: rgba(255,255,255,0.4); }
+/* The clickable surface inside each step — kept as a real button so it's
+   tab-reachable and SR-announceable. Resets browser button defaults and
+   inherits .ob-step's typography + flex layout. */
+.ob-step__btn {
+  display: flex; align-items: center; gap: 14px; width: 100%;
+  background: transparent; border: 0; padding: 0;
+  color: inherit; font: inherit; text-align: left;
+  cursor: inherit;
+}
+.ob-step__btn:focus-visible {
+  outline: 2px solid var(--color-accent-3);
+  outline-offset: 3px;
+}
+.ob-step__btn:disabled { cursor: not-allowed; }
 
 /* Main canvas ---------------------------------------------- */
 .ob-main { position: relative; min-width: 0; }

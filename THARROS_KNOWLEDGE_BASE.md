@@ -133,7 +133,7 @@ Ottawa, Ontario, Canada. Keep it Local, Keep it Canadian.
 Yes. Integration depth is one of the three pricing factors. Agents can connect to your CRM, intake forms, messaging channels, and other tools.
 
 **How do I get started?**
-Book a free discovery call from the homepage or the intake page. Tharros listens to the operation, scopes the build, and walks through pay-per-call vs the On-Call retainer with no obligation.
+Book a free discovery call from the homepage or fill out the project brief at /brief. Tharros listens to the operation, scopes the build, and walks through pay-per-call vs the On-Call retainer with no obligation.
 
 ---
 

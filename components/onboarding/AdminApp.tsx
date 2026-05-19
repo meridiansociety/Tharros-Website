@@ -14,12 +14,20 @@ const str = (v: FieldValue, fallback = "—"): string =>
   typeof v === "string" && v ? v : fallback;
 
 export function AdminApp() {
-  const initial = loadSubmissions();
-  const [submissions, setSubmissions] = useState<Submission[]>(initial);
-  const [currentId, setCurrentId] = useState<string | null>(initial[0]?.id ?? null);
+  // Hydrate from localStorage AFTER mount — SSR returns [] from loadSubmissions,
+  // and using that as the initial useState value on the client would diverge
+  // from the server-rendered HTML and trip React 19's hydration mismatch.
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [currentId, setCurrentId] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("prompt");
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const initial = loadSubmissions();
+    setSubmissions(initial);
+    setCurrentId(initial[0]?.id ?? null);
+  }, []);
 
   useEffect(() => () => {
     if (toastTimer.current) clearTimeout(toastTimer.current);

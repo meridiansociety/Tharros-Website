@@ -526,7 +526,7 @@ export default function RootLayout({
         name: "How do I get started?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Book a free discovery call from the homepage or the intake page. We'll listen to your operation, scope the build, and walk you through pay-per-call vs the On-Call retainer with no obligation.",
+          text: "Book a free discovery call from the homepage or fill out the brief at /brief. We'll listen to your operation, scope the build, and walk you through pay-per-call vs the On-Call retainer with no obligation.",
         },
       },
     ],

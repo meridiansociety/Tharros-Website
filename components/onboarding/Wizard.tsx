@@ -122,14 +122,18 @@ export function Wizard({
 
           <ul className="ob-steps">
             {stepMeta.map((s, i) => (
-              <li
-                key={s.id}
-                className={s.className}
-                onClick={() => { if (!s.locked) goTo(i); }}
-              >
-                <span className="ob-step__n">{String(i + 1).padStart(2, "0")}</span>
-                <span className="ob-step__name">{s.name}</span>
-                <span className="ob-step__tick"><IconCheck size={12} /></span>
+              <li key={s.id} className={s.className}>
+                <button
+                  type="button"
+                  className="ob-step__btn"
+                  onClick={() => { if (!s.locked) goTo(i); }}
+                  disabled={s.locked}
+                  aria-current={s.className.includes("is-current") ? "step" : undefined}
+                >
+                  <span className="ob-step__n">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="ob-step__name">{s.name}</span>
+                  <span className="ob-step__tick"><IconCheck size={12} /></span>
+                </button>
               </li>
             ))}
           </ul>

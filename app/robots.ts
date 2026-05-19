@@ -3,7 +3,7 @@ import { MetadataRoute } from "next";
 const SITE_URL = "https://tharros.ca";
 
 export default function robots(): MetadataRoute.Robots {
-  const disallow = ["/api/", "/_next/", "/_vercel/"];
+  const disallow = ["/admin/", "/api/", "/_next/", "/_vercel/"];
 
   return {
     rules: [
