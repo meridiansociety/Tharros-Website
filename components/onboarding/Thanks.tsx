@@ -21,27 +21,27 @@ export function Thanks({ state, onReset }: ThanksProps) {
   const timeline = [
     {
       when: "Within 24 hours",
-      what: "Magnus reads your brief.",
-      desc: "Personal review. Expect a reply with a proposed discovery-call time, or a couple of clarifying questions if anything's unclear.",
+      what: "Brief reviewed.",
+      desc: "A Tharros representative reviews your brief and replies with a proposed discovery-call time — or a couple of clarifying questions if anything needs unpacking.",
     },
     {
       when: "Week 1",
-      what: "Discovery call & scope.",
-      desc: "A 30-minute call to walk through the brief, lock the package, and lay out a clear deliverable list with dates.",
+      what: "Discovery.",
+      desc: "A 30-minute call to map your business, the time drains, and where a modern site and an integrated agent have the most impact. Together we scope the build that fits.",
     },
     {
       when: buildWhen,
-      what: "Build & integrate.",
-      desc: "Site goes up on a private staging URL. Iterations happen in 2–3 day cycles — you review, we adjust, we move.",
+      what: "Build & Integrate.",
+      desc: "We modernize the site — and on Integrate or On-Call, embed the AI agent directly into it. You see progress as we go and sign off at each checkpoint.",
     },
     {
       when: "Launch day",
-      what: "Live, on your domain.",
-      desc: "DNS, SSL, analytics, search-console — handled. We stay on call for the first two weeks at no charge while things settle.",
+      what: "Launch & Support.",
+      desc: "We publish, monitor, and stay reachable. Pay-per-call after launch for Refresh and Integrate, or roll into the On-Call retainer for unlimited fixes, improvements, and new agents.",
     },
   ];
 
-  const firstName = owner.split(" ")[0] || "friend";
+  const firstName = owner.split(" ")[0] || "there";
 
   return (
     <div className="ob-stage__inner ob-thanks-stage">
@@ -60,8 +60,8 @@ export function Thanks({ state, onReset }: ThanksProps) {
             We&apos;re on it,&nbsp;<span className="accent">{firstName}.</span>
           </h1>
           <p className="lede">
-            Your brief is in. Magnus reads every one personally — expect a reply
-            within one business day. Here&apos;s what happens next.
+            Your brief is in. A Tharros representative will reply within one
+            business day. Here&apos;s what happens next.
           </p>
 
           <ol className="ob-timeline">
