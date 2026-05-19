@@ -80,8 +80,8 @@ body {
 }
 .ob-side__title .accent { color: var(--color-accent-3); }
 .ob-side__sub {
-  color: rgba(248,250,252,0.65);
-  font-size: 14px; line-height: 1.6; max-width: 30ch;
+  color: rgba(248,250,252,0.78);
+  font-size: 15px; line-height: 1.6; max-width: 32ch;
   margin: 0 0 36px;
 }
 
@@ -94,9 +94,9 @@ body {
   display: flex; align-items: center; gap: 14px;
   padding: 14px 0; border-bottom: 1px solid var(--color-border);
   cursor: pointer;
-  font-weight: 700; font-size: 11px; letter-spacing: 0.18em;
+  font-weight: 700; font-size: 12.5px; letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.5);
   transition: color .3s var(--ease-industrial);
 }
 .ob-step:hover { color: rgba(255,255,255,0.7); }
@@ -182,8 +182,8 @@ body {
   color: #fff; margin: 6px 0 8px;
 }
 .ob-card__sub {
-  color: rgba(248,250,252,0.65);
-  font-size: 15px; line-height: 1.6;
+  color: rgba(248,250,252,0.78);
+  font-size: 16.5px; line-height: 1.6;
   margin: 0 0 36px;
 }
 
@@ -197,7 +197,7 @@ body {
 
 .ob-field { display: flex; flex-direction: column; gap: 8px; }
 .ob-field__label {
-  font-weight: 900; font-size: 10px; letter-spacing: 0.3em;
+  font-weight: 900; font-size: 11.5px; letter-spacing: 0.28em;
   text-transform: uppercase; color: #fff;
 }
 .ob-field__label .optional {
@@ -205,7 +205,7 @@ body {
   margin-left: 6px;
 }
 .ob-field__hint {
-  font-size: 12px; line-height: 1.55; color: var(--color-subdued);
+  font-size: 13.5px; line-height: 1.55; color: var(--color-subdued);
   margin: -2px 0 6px;
 }
 
@@ -217,7 +217,7 @@ body {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.10);
   color: #fff;
-  font-family: inherit; font-size: 14px; font-weight: 500;
+  font-family: inherit; font-size: 15.5px; font-weight: 500;
   transition: border-color .25s, box-shadow .25s, background .25s;
 }
 .ob-input::placeholder, .ob-textarea::placeholder { color: rgba(255,255,255,0.3); }
@@ -281,12 +281,12 @@ body {
   display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
 }
 .ob-chip-suggest button {
-  font-weight: 700; font-size: 11px; letter-spacing: 0.06em;
-  padding: 6px 12px;
+  font-weight: 700; font-size: 12.5px; letter-spacing: 0.04em;
+  padding: 7px 13px;
   border-radius: 999px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.10);
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.7);
   transition: all .2s var(--ease-industrial);
 }
 .ob-chip-suggest button:hover {
@@ -343,7 +343,7 @@ body {
   letter-spacing: -0.005em;
 }
 .ob-check__hint {
-  font-size: 12px; line-height: 1.5;
+  font-size: 13px; line-height: 1.5;
   color: var(--color-subdued);
   margin-top: 2px;
 }
@@ -358,8 +358,8 @@ body {
   border-radius: 12px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.10);
-  color: rgba(255,255,255,0.7);
-  font-weight: 800; font-size: 11px; letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.78);
+  font-weight: 800; font-size: 12px; letter-spacing: 0.14em;
   text-transform: uppercase;
   transition: all .25s var(--ease-industrial);
   text-align: center;
@@ -1057,6 +1057,11 @@ body {
 .admin-detail__received { margin-left: 12px; }
 
 /* Thanks screen extras */
+/* Multi-file list in the Review screen */
+.ob-review__filelist {
+  display: inline-flex; flex-wrap: wrap; gap: 6px;
+}
+
 .ob-thanks-stage { grid-template-columns: 1fr; }
 .ob-thanks__actions {
   margin-top: 40px;

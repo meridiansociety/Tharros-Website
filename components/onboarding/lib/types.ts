@@ -2,6 +2,7 @@
 
 export type FieldKind =
   | "text"
+  | "textarea"
   | "url"
   | "chips"
   | "checks"
@@ -42,6 +43,10 @@ export interface FieldDef {
   labels?: string[];
   /** File-input accept attribute. */
   accept?: string;
+  /** For `file` kind — allow multiple files (stored as FileInfo[]). */
+  multiple?: boolean;
+  /** For `textarea` kind — rows hint. */
+  rows?: number;
 }
 
 export interface StepDef {
@@ -60,7 +65,7 @@ export interface FileInfo {
 }
 
 /** All possible value types a field can hold. */
-export type FieldValue = string | string[] | number | FileInfo | null;
+export type FieldValue = string | string[] | number | FileInfo | FileInfo[] | null;
 
 /** The whole form state, keyed by field id. */
 export type FormState = Record<string, FieldValue>;

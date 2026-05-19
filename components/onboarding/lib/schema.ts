@@ -154,6 +154,7 @@ export const OB_STEPS: StepDef[] = [
       { id: "primaryColor", kind: "colors", label: "Primary brand colour",
         options: [
           { v: "#0ea5e9", label: "Sky" },
+          { v: "#1e3a8a", label: "Navy" },
           { v: "#1e293b", label: "Slate" },
           { v: "#dc2626", label: "Bold red" },
           { v: "#16a34a", label: "Forest" },
@@ -162,6 +163,7 @@ export const OB_STEPS: StepDef[] = [
           { v: "#0d9488", label: "Teal" },
           { v: "#7c3aed", label: "Violet" },
           { v: "#be185d", label: "Magenta" },
+          { v: "#92400e", label: "Earth brown" },
           { v: "#000000", label: "Black" },
         ],
         hint: "Pick what’s closest to your logo, or use the picker for a custom hex.",
@@ -202,11 +204,13 @@ export const OB_STEPS: StepDef[] = [
         placeholder: "Type and press enter…",
         suggest: [
           "Locally owned", "Family-owned", "Women-owned", "Veteran-owned",
-          "Licensed & insured", "Certified / accredited",
+          "Indigenous-owned", "BIPOC-owned", "LGBTQ+ friendly",
+          "Licensed & insured", "Insured & bonded", "Certified / accredited",
+          "Background-checked staff", "Bilingual service (EN/FR)",
           "Award-winning", "20+ years experience",
           "Eco-friendly", "Made in Canada",
           "Satisfaction guaranteed", "Free quotes / consultations",
-          "Same-day service", "By appointment only",
+          "Same-day service", "Mobile / on-site service", "By appointment only",
         ],
         optional: true,
         hint: "Credentials, claims, or short phrases the site should highlight." },
@@ -237,10 +241,18 @@ export const OB_STEPS: StepDef[] = [
           { v: "reviews", label: "Reviews / testimonials", hint: "Google / Facebook quotes we can lift." },
           { v: "copy", label: "Existing copy", hint: "Brochures, old website text, product descriptions." },
           { v: "brand-doc", label: "Brand guide / style doc", hint: "If you’ve had one made before." },
+          { v: "fonts", label: "Brand fonts", hint: "Font files or the names of fonts you use." },
+          { v: "video", label: "Video footage", hint: "Walkthroughs, product demos, B-roll." },
+          { v: "social", label: "Social handles", hint: "We can pull your latest photos from Instagram, etc." },
           { v: "none", label: "None of the above — start from scratch" },
         ],
         optional: true,
       },
+      { id: "extraAssetFiles", kind: "file", multiple: true,
+        label: "Drop any files you have ready",
+        hint: "Photos, brand docs, old screenshots, anything that helps — drop them all here. We capture filenames now and follow up for the actual files after the discovery call.",
+        optional: true,
+        accept: ".svg,.png,.jpg,.jpeg,.gif,.webp,.pdf,.doc,.docx,.zip,.mp4,.mov" },
       { id: "refSites", kind: "chips", label: "Sites you like the look of",
         placeholder: "Paste URLs (one at a time, press enter)",
         optional: true,
@@ -261,6 +273,11 @@ export const OB_STEPS: StepDef[] = [
         hint: "Optional but handy if we have a quick clarifying question." },
       { id: "bestTime", kind: "text", label: "Best time to reach you", optional: true,
         placeholder: "After 4pm weekdays" },
+      { id: "notes", kind: "textarea", label: "Anything else we should know",
+        placeholder: "Constraints, deadlines, internal context, a question you have, anything we didn’t cover.",
+        rows: 5,
+        optional: true,
+        hint: "Optional. Use it for whatever didn’t fit the boxes above." },
     ],
   },
 ];
@@ -275,7 +292,7 @@ export function defaultState(): FormState {
     step.fields.forEach((f) => {
       if (f.kind === "chips" || f.kind === "checks") out[f.id] = [];
       else if (f.kind === "slider") out[f.id] = f.defaultValue ?? Math.floor(((f.min ?? 0) + (f.max ?? 0)) / 2);
-      else if (f.kind === "file") out[f.id] = null;
+      else if (f.kind === "file") out[f.id] = f.multiple ? [] : null;
       else out[f.id] = "";
     });
   });
@@ -286,7 +303,10 @@ export function fieldComplete(field: FieldDef, value: FieldValue): boolean {
   if (field.optional) return true;
   if (field.kind === "chips" || field.kind === "checks") return Array.isArray(value) && value.length > 0;
   if (field.kind === "slider") return value != null;
-  if (field.kind === "file") return value != null;
+  if (field.kind === "file") {
+    if (field.multiple) return Array.isArray(value) && value.length > 0;
+    return value != null;
+  }
   return typeof value === "string" && value.trim().length > 0;
 }
 

@@ -14,9 +14,10 @@ export function formatFileSize(bytes: number): string {
 
 export function renderValue(field: FieldDef, v: FieldValue): ReactNode {
   if ((field.kind === "chips" || field.kind === "checks") && Array.isArray(v)) {
+    const strings = v.filter((x): x is string => typeof x === "string");
     const display = field.kind === "checks"
-      ? v.map((x) => field.options?.find((o) => o.v === x)?.label ?? x)
-      : v;
+      ? strings.map((x) => field.options?.find((o) => o.v === x)?.label ?? x)
+      : strings;
     return display.map((x) => <span className="pill" key={x}>{x}</span>);
   }
   if (field.kind === "radio" && typeof v === "string") {
@@ -35,8 +36,19 @@ export function renderValue(field: FieldDef, v: FieldValue): ReactNode {
       </span>
     );
   }
-  if (field.kind === "file" && v && typeof v === "object" && !Array.isArray(v)) {
-    return `${v.name} (${formatFileSize(v.size)})`;
+  if (field.kind === "file") {
+    if (field.multiple && Array.isArray(v) && v.length && typeof v[0] === "object") {
+      return (
+        <span className="ob-review__filelist">
+          {(v as Array<{ name: string; size: number }>).map((f, i) => (
+            <span className="pill" key={f.name + i}>{f.name} · {formatFileSize(f.size)}</span>
+          ))}
+        </span>
+      );
+    }
+    if (v && typeof v === "object" && !Array.isArray(v)) {
+      return `${v.name} (${formatFileSize(v.size)})`;
+    }
   }
   if (field.kind === "url" && typeof v === "string") {
     return (

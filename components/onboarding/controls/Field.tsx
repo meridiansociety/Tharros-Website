@@ -57,6 +57,24 @@ function TextField({ field, value, onChange }: FieldProps) {
   );
 }
 
+function TextAreaField({ field, value, onChange }: FieldProps) {
+  const v = typeof value === "string" ? value : "";
+  return (
+    <div className="ob-field">
+      <Label field={field} />
+      {field.hint && <div className="ob-field__hint">{field.hint}</div>}
+      <textarea
+        id={`f-${field.id}`}
+        className="ob-textarea"
+        rows={field.rows ?? 4}
+        value={v}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={field.placeholder || ""}
+      />
+    </div>
+  );
+}
+
 /* ============================================================
    URL (with leading globe glyph)
    ============================================================ */
@@ -86,7 +104,7 @@ function UrlField({ field, value, onChange }: FieldProps) {
    CHIPS (tag input + suggested pills)
    ============================================================ */
 function ChipField({ field, value, onChange }: FieldProps) {
-  const arr = Array.isArray(value) ? value : [];
+  const arr = (Array.isArray(value) ? value : []) as string[];
   const [draft, setDraft] = useState("");
 
   // Use functional updaters so rapid clicks (suggest pills, repeated Enter)
@@ -95,12 +113,12 @@ function ChipField({ field, value, onChange }: FieldProps) {
     const cleaned = raw.trim();
     if (!cleaned) return;
     onChange((prev) => {
-      const cur = Array.isArray(prev) ? prev : [];
+      const cur = (Array.isArray(prev) ? prev : []) as string[];
       return cur.includes(cleaned) ? cur : [...cur, cleaned];
     });
   };
   const remove = (raw: string) =>
-    onChange((prev) => (Array.isArray(prev) ? prev : []).filter((x) => x !== raw));
+    onChange((prev) => ((Array.isArray(prev) ? prev : []) as string[]).filter((x) => x !== raw));
 
   const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" || e.key === ",") {
@@ -167,10 +185,10 @@ function ChipField({ field, value, onChange }: FieldProps) {
    CHECKS (multi-select cards)
    ============================================================ */
 function CheckField({ field, value, onChange }: FieldProps) {
-  const arr = Array.isArray(value) ? value : [];
+  const arr = (Array.isArray(value) ? value : []) as string[];
   const toggle = (v: string) => {
     onChange((prev) => {
-      const cur = Array.isArray(prev) ? prev : [];
+      const cur = (Array.isArray(prev) ? prev : []) as string[];
       // "none" is exclusive — selecting it clears others, selecting any other
       // clears "none".
       if (v === "none") return cur.includes("none") ? [] : ["none"];
@@ -318,9 +336,80 @@ function ColorsField({ field, value, onChange }: FieldProps) {
    ============================================================ */
 function FileField({ field, value, onChange }: FieldProps) {
   const [drag, setDrag] = useState(false);
-  const v = value && typeof value === "object" && !Array.isArray(value) ? value as FileInfo : null;
-
   const toInfo = (f: File): FileInfo => ({ name: f.name, size: f.size, type: f.type });
+
+  if (field.multiple) {
+    const list: FileInfo[] = Array.isArray(value) && value.length && typeof value[0] === "object"
+      ? (value as FileInfo[])
+      : [];
+    const addFiles = (files: FileList | null) => {
+      if (!files || !files.length) return;
+      const incoming = Array.from(files).map(toInfo);
+      onChange((prev) => {
+        const cur = Array.isArray(prev) && prev.length && typeof prev[0] === "object"
+          ? (prev as FileInfo[])
+          : [];
+        const seen = new Set(cur.map((f) => f.name + ":" + f.size));
+        const merged = [...cur];
+        for (const f of incoming) {
+          const key = f.name + ":" + f.size;
+          if (!seen.has(key)) { merged.push(f); seen.add(key); }
+        }
+        return merged;
+      });
+    };
+    const removeAt = (i: number) => onChange((prev) => {
+      if (!Array.isArray(prev)) return prev;
+      const arr = prev as FileInfo[];
+      return arr.filter((_, idx) => idx !== i);
+    });
+
+    return (
+      <div className="ob-field">
+        <Label field={field} />
+        {field.hint && <div className="ob-field__hint">{field.hint}</div>}
+        <div
+          className={`ob-file ${drag ? "is-drag" : ""}`}
+          onDragOver={(e: DragEvent) => { e.preventDefault(); setDrag(true); }}
+          onDragLeave={() => setDrag(false)}
+          onDrop={(e: DragEvent) => { e.preventDefault(); setDrag(false); addFiles(e.dataTransfer.files); }}
+        >
+          <input
+            id={`f-${field.id}`}
+            type="file"
+            multiple
+            accept={field.accept || undefined}
+            onChange={(e) => { addFiles(e.target.files); e.target.value = ""; }}
+          />
+          <div className="ob-file__icon"><IconUpload /></div>
+          <div className="ob-file__title">
+            {list.length ? "Add more files" : "Drop files here, or click to upload"}
+          </div>
+          <div className="ob-file__hint">
+            {field.accept
+              ? field.accept.replace(/\./g, "").toUpperCase().split(",").join(" · ")
+              : "Any file type"}
+          </div>
+        </div>
+        {list.length > 0 && (
+          <div className="ob-file__list">
+            {list.map((f, i) => (
+              <div className="ob-file__item" key={f.name + ":" + f.size + ":" + i}>
+                <IconCheck size={14} />
+                <span>{f.name}</span>
+                <span className="size">{(f.size / 1024).toFixed(1)} kB</span>
+                <button type="button" onClick={() => removeAt(i)} aria-label={`Remove ${f.name}`}>
+                  <IconX size={14} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  const v = value && typeof value === "object" && !Array.isArray(value) ? value as FileInfo : null;
   const onFiles = (files: FileList | null) => {
     if (!files || !files.length) return;
     onChange(toInfo(files[0]));
@@ -375,6 +464,7 @@ function FileField({ field, value, onChange }: FieldProps) {
 export function Field({ field, value, onChange }: FieldProps) {
   switch (field.kind) {
     case "text":     return <TextField field={field} value={value} onChange={onChange} />;
+    case "textarea": return <TextAreaField field={field} value={value} onChange={onChange} />;
     case "url":      return <UrlField field={field} value={value} onChange={onChange} />;
     case "chips":    return <ChipField field={field} value={value} onChange={onChange} />;
     case "checks":   return <CheckField field={field} value={value} onChange={onChange} />;

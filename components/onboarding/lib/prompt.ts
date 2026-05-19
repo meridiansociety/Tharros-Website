@@ -39,6 +39,11 @@ function formatField(field: FieldDef | null, value: FieldValue): string {
   }
 
   if (field.kind === "file") {
+    if (field.multiple) {
+      if (!Array.isArray(value) || value.length === 0) return "_(not provided)_";
+      const files = value as Array<{ name: string; size: number }>;
+      return "\n" + files.map((f) => `  - \`${f.name}\` (${(f.size / 1024).toFixed(1)} kB)`).join("\n");
+    }
     if (!value || typeof value !== "object" || Array.isArray(value)) return "_(not provided)_";
     return `\`${value.name}\` (${(value.size / 1024).toFixed(1)} kB)`;
   }
@@ -59,7 +64,8 @@ export function buildPrompt(state: FormState): string {
   };
   const arr = (id: string): string[] => {
     const v = state[id];
-    return Array.isArray(v) ? v : [];
+    if (!Array.isArray(v)) return [];
+    return v.filter((x): x is string => typeof x === "string");
   };
 
   const lines: string[] = [];
@@ -167,6 +173,13 @@ export function buildPrompt(state: FormState): string {
   if (arr("refSites").length) {
     lines.push(`- **Reference sites:** ${formatField(findField("refSites"), get("refSites"))}`);
   }
+  const extraFiles = get("extraAssetFiles");
+  if (Array.isArray(extraFiles) && extraFiles.length) {
+    lines.push("- **Files supplied (metadata captured; request actual files in follow-up):**");
+    (extraFiles as Array<{ name: string; size: number }>).forEach((f) => {
+      lines.push(`  - \`${f.name}\` (${(f.size / 1024).toFixed(1)} kB)`);
+    });
+  }
   lines.push("");
 
   // ----- Contact
@@ -174,6 +187,12 @@ export function buildPrompt(state: FormState): string {
   lines.push(`- **Email:** ${str("email") || "_(missing)_"}`);
   if (str("phone")) lines.push(`- **Phone:** ${str("phone")}`);
   if (str("bestTime")) lines.push(`- **Best time to reach:** ${str("bestTime")}`);
+  if (str("notes")) {
+    lines.push("");
+    lines.push("**Additional notes from the client:**");
+    lines.push("");
+    lines.push(str("notes"));
+  }
   lines.push("");
 
   // ----- Build guidance footer
